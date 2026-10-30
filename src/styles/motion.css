@@ -1,0 +1,25 @@
+.hero { min-height: 680px; grid-template-columns: 1.15fr 1fr; }
+.hero-copy { min-width: 0; }
+.solar-stage { position: relative; min-width: 0; height: 520px; margin-inline: -30px; }
+.solar-canvas { width: 100%; height: 100%; pointer-events: none; }
+.solar-stage .solar-system { height: 100%; }
+.solar-stage .scene-caption { bottom: 20px; right: 30px; pointer-events: none; font-size: .6rem; }
+.button, .social-links a, nav a { transition: color .2s ease, background-color .2s ease, border-color .2s ease; }
+.project-card, .service-card { transition: border-color .25s ease, box-shadow .25s ease; }
+.project-card:hover, .service-card:hover { border-color: #8ddcff66; box-shadow: 0 8px 32px #0003; }
+.project-art { position: relative; overflow: hidden; }
+.project-art::before { content: ''; position: absolute; width: 230px; height: 230px; border: 1px solid #8ddcff12; border-radius: 50%; transform: rotateX(50deg) rotateZ(-25deg); pointer-events: none; }
+.project-art > * { position: relative; }
+@media (max-width: 1000px) and (min-width: 641px) {
+  .hero { grid-template-columns: 1.15fr 1fr; gap: 0; }
+  .solar-stage { height: 420px; margin-inline: -15px; }
+  h1 { font-size: clamp(2.4rem, 4.7vw, 3.3rem); }
+}
+@media (max-width: 640px) {
+  .hero { min-height: 0; grid-template-columns: 1fr; }
+  .solar-stage { height: 350px; margin: 0 -10px; }
+  .solar-stage .scene-caption { bottom: 10px; right: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

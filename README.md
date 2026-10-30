@@ -26,7 +26,8 @@ El build ejecuta TypeScript y genera `dist/`. GitHub Actions verifica el build e
 - `src/sections/`: portada, proyectos, servicios, proceso, presentación, experiencia y contacto.
 - `src/data/portfolio.ts`: contenido editable y tipado. Agregar proyectos aquí; los enlaces son opcionales y solo se muestran si existen.
 - `src/styles/`: tokens visuales y estilos adaptables (proyectos en 3/2/1 columnas).
-- `src/scene/`: representación estática decorativa; punto de integración del futuro sistema solar 3D.
+- `src/scene/`: sistema solar 3D, texturas procedurales propias, carga diferida y alternativa estática.
+- `src/hooks/`: preferencias de movimiento y animaciones GSAP de entrada/scroll.
 - `public/fonts/`: ubicación prevista para fuentes web verificadas; no se han añadido fuentes comerciales.
 - `docs/design-direction.md`: dirección visual aprobada y referencias.
 
@@ -34,7 +35,15 @@ El build ejecuta TypeScript y genera `dist/`. GitHub Actions verifica el build e
 
 Estructura funcional de una sola página con contenido del CV, iconos transparentes y enlaces de contacto reales. Los paneles de proyecto son composiciones abstractas, no capturas reales. No se incluyen enlaces de demostración inventados.
 
-La escena actual es CSS estático. Three.js / React Three Fiber, Drei y GSAP se incorporarán al implementar el 3D y las animaciones. Las fuentes actuales son fallbacks locales temporales; no son las fuentes exactas de Outer Wilds. Faltan capturas autorizadas, el PDF público del CV y la implementación del arte definitivo.
+La escena usa Three.js, React Three Fiber y Drei; GSAP sincroniza el revelado de órbitas y planetas con el scroll nativo. Las texturas son generadas localmente, sin descargar recursos del videojuego. El código 3D se carga por separado; solo renderiza cuando cambia la escena y deja de hacerlo fuera de pantalla o con la pestaña oculta. Móvil reduce resolución, geometría y estrellas.
+
+Con movimiento reducido se usa directamente la representación CSS estática y se desactivan entradas animadas. Errores de carga, falta de WebGL o pérdida del contexto conservan una alternativa visual sin eliminar el contenido. Las fuentes actuales siguen siendo fallbacks locales temporales; no son las fuentes exactas de Outer Wilds. Faltan capturas autorizadas, el PDF público del CV y el arte final de las secciones.
+
+```sh
+npm test
+```
+
+Las pruebas cubren la alternativa con movimiento reducido, el cambio de preferencia durante la visita y la contención de fallos de la escena. La revisión visual del 3D se realiza en navegador.
 
 ## GitHub Pages
 

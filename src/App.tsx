@@ -6,8 +6,10 @@ import { Process } from './sections/Process';
 import { About } from './sections/About';
 import { Experience } from './sections/Experience';
 import { Contact } from './sections/Contact';
+import { usePageMotion } from './hooks/usePageMotion';
 
 export function App() {
+  usePageMotion();
   return <>
     <a className="skip-link" href="#contenido">Saltar al contenido</a>
     <Header />

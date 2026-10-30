@@ -1,4 +1,4 @@
-// Static, lightweight scene for the structure phase and future WebGL fallback.
+// Static, lightweight alternative for reduced motion, load failures and no WebGL.
 // Decorative only: portfolio content never depends on a canvas loading.
 export function SolarSystemFallback() {
   return (
@@ -6,7 +6,6 @@ export function SolarSystemFallback() {
       <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="orbit orbit-three" />
       <div className="sun" /><div className="planet planet-red" />
       <div className="planet planet-blue" /><div className="planet planet-ringed"><span /></div>
-      <span className="scene-caption">HELLOWORK / EXPEDICIÓN 001</span>
     </div>
   );
 }

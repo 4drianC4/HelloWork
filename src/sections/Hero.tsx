@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
-import { SolarSystemFallback } from '../scene/SolarSystemFallback';
+import { SolarSystem } from '../scene/SolarSystem';
 
 export function Hero() {
   return (
@@ -11,7 +11,7 @@ export function Hero() {
         <div className="actions"><a className="button" href="#proyectos">Ver proyectos <ArrowUpRight size={17} /></a><a className="button button-outline" href="#contacto">Cuéntame tu idea</a></div>
         <a className="scroll-cue" href="#proyectos"><ArrowDown size={18} /> Desplázate para explorar</a>
       </div>
-      <SolarSystemFallback />
+      <SolarSystem />
     </section>
   );
 }
