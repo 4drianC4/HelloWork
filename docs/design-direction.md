@@ -105,3 +105,7 @@ Antes de atribuir movimientos, colores o composiciones específicas a las refere
 ## Aplicación
 
 Para trabajo de diseño, mostrar decisiones o muestras focalizadas antes de ampliar al sitio completo, conforme a la solicitud del usuario de avanzar paso a paso. Para implementación autorizada, aplicar estas bases y verificar página en escritorio y móvil, contenido disponible sin 3D, anclas, contraste, movimiento reducido y recursos bajo `/HelloWork/`. No declarar la tipografía exacta ni el despliegue completos sin verificarlos.
+
+## Actualización de movimiento y perspectiva
+
+El usuario solicita movimiento lento continuo e infinito, independiente del scroll. Esta decisión reemplaza el revelado por scroll: presentar todos los planetas desde el inicio, con giro axial y órbitas lentas. Pausar al salir de pantalla o esconder la pestaña; mantener la alternativa estática con movimiento reducido. La portada vuelve a un recorrido normal sin un tramo sticky largo. Buscar una perspectiva baja y oblicua, con planetas grandes en primer plano, tomando como referencia la lámina aprobada. No declarar fidelidad visual sin compararla en navegador.

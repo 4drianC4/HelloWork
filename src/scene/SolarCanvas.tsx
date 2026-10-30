@@ -3,13 +3,10 @@ import type { MutableRefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Line } from '@react-three/drei';
 import { AdditiveBlending, Color, DoubleSide, Group, MathUtils, Mesh, Vector3 } from 'three';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { glowTexture, planetTexture } from './textures';
 import type { PlanetKind } from './textures';
 import { SolarSystemFallback } from './SolarSystemFallback';
 
-gsap.registerPlugin(ScrollTrigger);
 type Progress = MutableRefObject<{ value: number }>;
 const clamp = MathUtils.clamp;
 
@@ -35,15 +32,17 @@ function Planet({ kind, radius, size, angle, index, progress, compact }: {
   const mesh = useRef<Mesh>(null);
   const texture = useMemo(() => planetTexture(kind), [kind]);
   useEffect(() => () => texture.dispose(), [texture]);
-  useFrame(() => {
+  const elapsed = useRef(0);
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, .05);
     if (!group.current || !mesh.current) return;
     const value = progress.current.value;
     const reveal = MathUtils.smoothstep(value, .15 + index * .09, .46 + index * .09);
-    const orbitAngle = angle + value * .15;
+    const orbitAngle = angle + elapsed.current * (.008 / Math.sqrt(radius));
     group.current.position.set(Math.cos(orbitAngle) * radius, 0, Math.sin(orbitAngle) * radius);
     group.current.scale.setScalar(Math.max(.001, reveal));
     group.current.visible = reveal > .001;
-    mesh.current.rotation.y = value * .65 + angle;
+    mesh.current.rotation.y = elapsed.current * .035 + angle;
   });
   return <group ref={group}>
     <mesh ref={mesh} rotation={[.12, angle, .08]}>
@@ -87,62 +86,43 @@ function StarField({ compact, progress }: { compact: boolean; progress: Progress
 function System({ progress, compact }: { progress: Progress; compact: boolean }) {
   const group = useRef<Group>(null);
   const { camera, size } = useThree();
+  const elapsed = useRef(0);
   const [sun, glow] = useMemo(() => [planetTexture('sun'), glowTexture()], []);
   useEffect(() => () => { sun.dispose(); glow.dispose(); }, [sun, glow]);
-  useFrame(() => {
-    const value = progress.current.value;
-    if (group.current) group.current.rotation.y = -.3 + value * .18;
-    // Keep every orbit within both narrow and wide viewports.
-    const distance = size.width / size.height < 1 ? 17.5 : 14;
-    camera.position.z = distance + (1 - value) * 1.2;
-    camera.updateProjectionMatrix();
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, .05);
+    if (group.current) group.current.rotation.y = -.12 + Math.sin(elapsed.current * .012) * .035;
+    camera.position.z = size.width / size.height < .9 ? 18 : 12.8;
   });
   return <>
     <ambientLight intensity={.65} />
     <directionalLight position={[-3, 5, 6]} intensity={2.1} color="#d9eaff" />
     <pointLight position={[0, .5, 0]} color="#ffc181" intensity={22} decay={2} />
     <StarField compact={compact} progress={progress} />
-    <group ref={group} rotation={[.62, -.3, -.25]}>
-      <mesh><sphereGeometry args={[.68, 48, 32]} /><meshBasicMaterial map={sun} color="#ffdb9b" /></mesh>
+    <group ref={group} rotation={[.34, -.12, .18]}>
+      <mesh><sphereGeometry args={[.85, 48, 32]} /><meshBasicMaterial map={sun} color="#ffdb9b" /></mesh>
       <sprite scale={[4.8, 4.8, 1]}><spriteMaterial map={glow} blending={AdditiveBlending} depthWrite={false} transparent opacity={.7} /></sprite>
       {Array.from({ length: compact ? 30 : 65 }, (_, i) => {
         const angle = i * 2.39996;
-        const radius = 3.1 + (i % 9) * .19;
+        const radius = 2.9 + (i % 9) * .27;
         return <mesh key={`rock-${i}`} position={[Math.cos(angle) * radius, Math.sin(i * 7) * .24, Math.sin(angle) * radius]} rotation={[i, i * .7, i * .3]} scale={[1, .7 + (i % 3) * .2, .8]}>
-          <icosahedronGeometry args={[.045 + (i % 5) * .023, 0]} />
+          <icosahedronGeometry args={[.05 + (i % 7) * .023, 1]} />
           <meshStandardMaterial color={i % 3 === 0 ? '#b39379' : '#6b605a'} roughness={1} flatShading />
         </mesh>;
       })}
       {[1.65, 2.65, 3.85, 5.15].map((radius, i) => <Orbit key={radius} radius={radius} index={i} progress={progress} />)}
       <Planet kind="rock" radius={1.65} size={.23} angle={-1.3} index={0} progress={progress} compact={compact} />
-      <Planet kind="rock" radius={2.65} size={.48} angle={2.5} index={1} progress={progress} compact={compact} />
-      <Planet kind="ocean" radius={3.85} size={.72} angle={.65} index={2} progress={progress} compact={compact} />
-      <Planet kind="gas" radius={5.15} size={.57} angle={-1.03} index={3} progress={progress} compact={compact} />
+      <Planet kind="rock" radius={2.65} size={.62} angle={2.5} index={1} progress={progress} compact={compact} />
+      <Planet kind="ocean" radius={3.85} size={1.08} angle={.5} index={2} progress={progress} compact={compact} />
+      <Planet kind="gas" radius={5.15} size={.7} angle={-1.03} index={3} progress={progress} compact={compact} />
     </group>
   </>;
 }
 
 export default function SolarCanvas({ active, compact }: { active: boolean; compact: boolean }) {
-  const progress = useRef({ value: .7 });
-  const invalidate = useRef<(() => void) | undefined>(undefined);
+  const progress = useRef({ value: 1 });
   const container = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    if (!active || failed) return;
-    const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      const hero = container.current?.closest('.hero-expedition');
-      if (!hero) return;
-      gsap.to(progress.current, {
-        value: 1, ease: 'none',
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 1.8, invalidateOnRefresh: true },
-        onUpdate: () => invalidate.current?.(),
-      });
-    });
-    invalidate.current?.();
-    return () => media.revert();
-  }, [active, failed]);
 
   useEffect(() => {
     const canvas = container.current?.querySelector('canvas');
@@ -155,12 +135,12 @@ export default function SolarCanvas({ active, compact }: { active: boolean; comp
   if (failed) return <SolarSystemFallback />;
   return <div className="solar-canvas" ref={container}>
     <Canvas
-      frameloop={active ? 'demand' : 'never'}
+      frameloop={active ? 'always' : 'never'}
       dpr={compact ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 16], fov: 45, near: .1, far: 60 }}
       gl={{ alpha: true, antialias: !compact, powerPreference: 'low-power' }}
       fallback={<SolarSystemFallback />}
-      onCreated={({ invalidate: draw, gl }) => { invalidate.current = draw; gl.setClearColor(0x05070d, 0); draw(); }}
+      onCreated={({ invalidate: draw, gl }) => { gl.setClearColor(0x05070d, 0); draw(); }}
     ><System progress={progress} compact={compact} /></Canvas>
   </div>;
 }
