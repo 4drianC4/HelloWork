@@ -17,7 +17,10 @@ export function usePageMotion() {
         '.section-heading, .project-card, .service-card, .process-grid > li, .about-grid, .experience, .contact-row',
       );
       elements.forEach(element => {
+        const siblingIndex = Array.from(element.parentElement?.children ?? []).indexOf(element);
+        const staggered = element.matches('.project-card, .service-card, .process-grid > li, .experience');
         const reveal = gsap.from(element, {
+          delay: staggered ? Math.min(Math.max(siblingIndex, 0), 3) * .09 : 0,
           y: 20, opacity: 0, duration: .6, paused: true, ease: 'power2.out', clearProps: 'all',
         });
         const trigger = ScrollTrigger.create({
@@ -27,6 +30,10 @@ export function usePageMotion() {
         const onFocus = () => { reveal.progress(1); trigger.kill(); };
         element.addEventListener('focusin', onFocus);
         listeners.push(() => element.removeEventListener('focusin', onFocus));
+      });
+      gsap.fromTo('.timeline', { '--trail-progress': 0 }, {
+        '--trail-progress': 1, ease: 'none',
+        scrollTrigger: { trigger: '.timeline', start: 'top 85%', end: 'bottom 65%', scrub: .6 },
       });
       return () => listeners.forEach(remove => remove());
     });

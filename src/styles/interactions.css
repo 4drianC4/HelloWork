@@ -30,3 +30,33 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
 @media(max-width:640px) { .dialog-content { padding: 24px; } .project-dialog { max-height: calc(100dvh - 24px); } .dialog-art { min-height: 170px; } }
 @media(prefers-reduced-motion:reduce), (hover:none) { .depth-card { transform: none; } .depth-card::after { display: none; } }
 @media(prefers-reduced-motion:reduce) { .project-dialog[open] { animation: none; } .depth-card, .header nav a::after { transition: none; } }
+
+/* Small discoveries: all essential content remains visible without interaction. */
+.location-and-signal { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.location-and-signal .location { margin: 0; }
+.signal-star { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; color: var(--ember); background: transparent; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-touch-callout: none; }
+.signal-star::before { content: ''; position: absolute; inset: 2px; border: 1px solid transparent; border-radius: inherit; transition: border-color .25s ease, box-shadow .25s ease; }
+.signal-star:hover::before, .signal-star:focus-visible::before { border-color: #efa66a66; box-shadow: 0 0 20px #efa66a22; }
+.signal-star.is-holding::before { animation: receive-signal .7s ease-out both; }
+.signal-dialog { width: min(440px, calc(100% - 32px)); background: radial-gradient(ellipse at 50% 0, #142846, #05070d 70%); }
+.signal-message { padding: 64px 32px 36px; text-align: center; }
+.signal-message > svg { color: var(--ember); margin-bottom: 24px; }
+.signal-message .eyebrow { font-size: .65rem; margin-bottom: 16px; }
+.signal-message h2 { font: 700 1.8rem/1.2 var(--font-display); margin-bottom: 22px; }
+.signal-message p + p { margin-top: 16px; font-size: .9rem; }
+.signal-signature { display: block; font: .7rem var(--font-mono); color: var(--ember); margin-top: 28px; }
+.process-detail summary { cursor: pointer; list-style: none; }
+.process-detail summary::-webkit-details-marker { display: none; }
+.process-detail summary:focus-visible { outline: 2px solid var(--space-800); outline-offset: 7px; border-radius: 4px; }
+.process-detail .process-orb { transition: transform .45s ease, filter .45s ease; }
+.process-detail summary:hover .process-orb, .process-detail summary:focus-visible .process-orb { transform: translateY(-4px) rotate(-8deg); filter: drop-shadow(5px 11px 7px #14284635); }
+.process-detail[open] .process-orb { transform: translateY(-4px) rotate(10deg); }
+.process-title { display: block; font-weight: 700; font-size: 1.15rem; line-height: 1.2; }
+.process-action { display: inline-flex; align-items: center; gap: 8px; font: .65rem var(--font-mono); color: #394351; margin-top: 12px; }
+.process-action > span { font-size: 1rem; transition: transform .25s ease; }
+.process-detail[open] .process-action > span { transform: rotate(45deg); }
+.process-grid .process-example { padding-left: 12px; border-left: 2px solid #9d7755; font-size: .82rem; margin-block: 16px; }
+.process-summary-description { display: block; margin-top: 12px; color: #394351; font-size: .85rem; line-height: 1.65; }
+.timeline::before { content: ''; position: absolute; width: 1px; left: -1px; top: 0; bottom: 0; background: linear-gradient(var(--sky), var(--ember)); transform: scaleY(var(--trail-progress, 1)); transform-origin: top; }
+@keyframes receive-signal { from { transform: scale(.65); border-color: transparent; } to { transform: scale(1.1); border-color: var(--ember); box-shadow: 0 0 24px #efa66a55; } }
+@media(prefers-reduced-motion:reduce) { .signal-star.is-holding::before { animation: none; border-color: var(--ember); } .process-detail summary .process-orb { transform: none; transition: none; } .process-action > span { transition: none; } }

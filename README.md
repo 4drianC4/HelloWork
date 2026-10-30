@@ -54,3 +54,11 @@ El repositorio se llama `4drianC4/HelloWork`; Vite usa `base: '/HelloWork/'` res
 Las tarjetas de proyectos responden al cursor con una inclinación de hasta 2,5 grados y un reflejo tenue. El efecto se desactiva con movimiento reducido o entrada táctil. «Abrir bitácora» muestra un diálogo nativo con reto, participación y solución; Escape y el botón de cierre devuelven el foco al proyecto original. El fondo queda bloqueado mientras está abierto.
 
 El navbar marca la sección actual con `aria-current` y una línea decorativa indica el progreso de lectura. Su actualización se agrupa por frame y limpia listeners al desmontar. El contenido ampliado de cada proyecto se edita en `src/data/portfolio.ts` (`caseStudy`); los enlaces públicos siguen siendo opcionales.
+
+## Descubrimientos y etapas
+
+En «Sobre mí», la estrella junto a Cochabamba abre una señal personal al hacer clic, pulsar Enter o mantenerla presionada 700 ms. Soltar antes, salir del botón o cancelar el gesto detiene el temporizador. El mensaje se cierra con Escape o su botón y devuelve el foco a la estrella.
+
+Los planetas de «Cómo trabajo» y sus títulos son controles `details/summary` nativos: muestran un ejemplo de cada etapa al tocarlos o activarlos con teclado. La descripción principal permanece visible. Hover y foco aportan una pequeña elevación y giro; movimiento reducido conserva las funciones sin esos efectos.
+
+Las entradas de tarjetas y etapas tienen un desfase breve y la línea de trayectoria se dibuja con el scroll. Las preferencias de movimiento reducido desactivan estas animaciones.
