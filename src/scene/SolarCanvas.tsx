@@ -38,7 +38,8 @@ function Planet({ kind, radius, size, angle, index, progress, compact }: {
     if (!group.current || !mesh.current) return;
     const value = progress.current.value;
     const reveal = MathUtils.smoothstep(value, .15 + index * .09, .46 + index * .09);
-    const orbitAngle = angle + elapsed.current * (.0104 / Math.sqrt(radius));
+    // Positive belt rotation around Y decreases the angle in the XZ plane.
+    const orbitAngle = angle - elapsed.current * (.0104 / Math.sqrt(radius));
     group.current.position.set(Math.cos(orbitAngle) * radius, 0, Math.sin(orbitAngle) * radius);
     group.current.scale.setScalar(Math.max(.001, reveal));
     group.current.visible = reveal > .001;
