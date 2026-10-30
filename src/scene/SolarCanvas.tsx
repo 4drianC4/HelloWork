@@ -6,6 +6,7 @@ import { AdditiveBlending, Color, DoubleSide, Group, MathUtils, Mesh, Vector3 } 
 import { glowTexture, planetTexture } from './textures';
 import type { PlanetKind } from './textures';
 import { SolarSystemFallback } from './SolarSystemFallback';
+import { CosmicBackdrop } from './CosmicBackdrop';
 
 type Progress = MutableRefObject<{ value: number }>;
 const clamp = MathUtils.clamp;
@@ -110,6 +111,7 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
     <ambientLight intensity={.65} />
     <directionalLight position={[-3, 5, 6]} intensity={2.1} color="#d9eaff" />
     <pointLight position={[0, .5, 0]} color="#ffc181" intensity={22} decay={2} />
+    <CosmicBackdrop compact={compact} />
     <StarField compact={compact} progress={progress} />
     <group ref={group} rotation={[.34, -.12, .18]}>
       <mesh><sphereGeometry args={[.85, 48, 32]} /><meshBasicMaterial map={sun} color="#ffdb9b" /></mesh>
