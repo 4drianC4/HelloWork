@@ -18,7 +18,7 @@ npm run build
 npm run preview
 ```
 
-El build ejecuta TypeScript y genera `dist/`. GitHub Actions verifica el build en pushes a `main` y en pull requests. La publicación de Pages se configurará en una etapa posterior; este workflow no despliega.
+El build ejecuta TypeScript y genera `dist/`. GitHub Actions ejecuta pruebas y build en pushes a `main` y pull requests. En `main`, el workflow también prepara el artefacto de Pages y despliega cuando Pages está habilitado. Puede iniciarse manualmente con Run workflow.
 
 ## Estructura
 
@@ -62,3 +62,11 @@ En «Sobre mí», la estrella junto a Cochabamba abre una señal personal al hac
 Los planetas de «Cómo trabajo» y sus títulos son controles `details/summary` nativos: muestran un ejemplo de cada etapa al tocarlos o activarlos con teclado. La descripción principal permanece visible. Hover y foco aportan una pequeña elevación y giro; movimiento reducido conserva las funciones sin esos efectos.
 
 Las entradas de tarjetas y etapas tienen un desfase breve y la línea de trayectoria se dibuja con el scroll. Las preferencias de movimiento reducido desactivan estas animaciones.
+
+### Activación del hosting
+
+En Settings → Pages → Build and deployment, seleccionar **GitHub Actions** como Source. El workflow `.github/workflows/ci.yml` instala con `npm ci`, ejecuta pruebas y build, sube `dist/` y despliega en el entorno `github-pages`. Los pull requests solo validan: no publican.
+
+La URL prevista es `https://4drianc4.github.io/HelloWork/`. Cada push a `main` actualizará el sitio una vez habilitado Pages. Si hay aprobaciones de entorno configuradas en GitHub, deben resolverse allí.
+
+La activación inicial devolvió HTTP 422: el plan actual no admite Pages para este repositorio privado. Es necesario elegir entre hacer público el repositorio (código e historial incluidos) o mantenerlo privado con un plan compatible. No cambiar visibilidad sin autorización del propietario.
