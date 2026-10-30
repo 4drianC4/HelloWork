@@ -26,10 +26,22 @@
 
 
 /* The complete scene is visible immediately; motion is independent of scroll. */
-.hero-expedition { position: relative; }
+.hero-expedition { position: relative; overflow: clip; }
 .hero-sticky { position: relative; min-height: 640px; display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 0; padding-block: 35px 55px; isolation: isolate; }
 .hero-sticky::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 78% 40%, #234b7340, transparent 50%), radial-gradient(ellipse at 70% 52%, #84503319, transparent 38%); mask-image: linear-gradient(90deg, transparent, #000 40%, #000 85%, transparent); }
 .hero-sticky h1 { font-size: clamp(2.5rem, 3.7vw, 3.45rem); }
 .hero-sticky .solar-stage { height: 550px; margin-inline: -25px; }
+.hero-sticky .solar-canvas {
+  transform: scale(1.65);
+  transform-origin: center;
+  /* Fade the canvas itself: the distant sky extends beyond the camera frustum,
+     so fading only its texture cannot remove the rectangular canvas boundary. */
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent),
+    linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+.hero-sticky .solar-system { transform: scale(1.3); transform-origin: center; }
 @media(max-width:1000px) and (min-width:641px) { .hero-sticky { min-height: 540px; grid-template-columns: 1fr 1fr; } .hero-sticky h1 { font-size: 2.5rem; } .hero-sticky .solar-stage { height: 440px; margin-inline: -10px; } }
 @media(max-width:640px) { .hero-sticky { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; gap: 0; } .hero-sticky .solar-stage { height: 360px; margin-inline: 0; } .hero-sticky h1 { font-size: 2.5rem; } .hero-sticky .scroll-cue { margin-top: 20px; } }
+@media(max-width:1000px) and (min-width:641px) { .hero-sticky .solar-canvas { transform: scale(1.4); } }
+@media(max-width:640px) { .hero-sticky .solar-canvas, .hero-sticky .solar-system { transform: scale(1.08); } }
