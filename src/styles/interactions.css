@@ -1,0 +1,32 @@
+.header nav a { position: relative; padding-block: 3px; }
+.header nav a::after { content: ''; position: absolute; height: 1px; bottom: -4px; inset-inline: 0; background: var(--sky); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.header nav a[aria-current="location"] { color: var(--sky); }
+.header nav a[aria-current="location"]::after { transform: scaleX(1); }
+.reading-progress { position: absolute; bottom: -1px; left: 0; height: 2px; width: 100%; background: linear-gradient(90deg, var(--orbit-blue), var(--sky), var(--ember)); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+.depth-card { position: relative; transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .25s ease-out, border-color .25s ease, box-shadow .25s ease; }
+.depth-card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(350px circle at var(--light-x, 50%) var(--light-y, 50%), #8ddcff14, transparent 65%); opacity: var(--light-opacity, 0); transition: opacity .3s ease; }
+.project-card:focus-within { border-color: var(--sky); }
+.project-open { background: transparent; border: 0; padding: 8px 0; font: inherit; font-size: .85rem; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; border-radius: 4px; }
+.project-dialog { width: min(760px, calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 0; color: var(--starlight); border: 1px solid #8ddcff40; border-radius: 12px; background: var(--space-950); box-shadow: 0 24px 100px #0009; overscroll-behavior: contain; }
+.project-dialog::backdrop { background: #02040be6; backdrop-filter: blur(8px); }
+.project-dialog[open] { animation: open-log .3s ease-out; }
+.dialog-inner { position: relative; }
+.dialog-close { position: sticky; top: 16px; float: right; margin: 16px 16px -58px 0; z-index: 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--border); border-radius: 50%; background: var(--space-950); color: var(--starlight); cursor: pointer; }
+.dialog-close:hover { color: var(--sky); border-color: var(--sky); }
+.dialog-art { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; min-height: 200px; color: var(--sky); border-bottom: 1px solid var(--border); }
+.dialog-art span { font: .65rem var(--font-mono); letter-spacing: .12em; }
+.dialog-content { padding: 32px 40px 40px; }
+.dialog-content h2 { font: 700 clamp(1.7rem, 4vw, 2.3rem)/1.2 var(--font-display); letter-spacing: -.03em; }
+.dialog-content .eyebrow { margin-bottom: 12px; }
+.dialog-content section { margin-top: 30px; }
+.dialog-content h3 { font-size: 1rem; color: var(--sky); margin-bottom: 12px; }
+.dialog-content p, .solution-list { font-size: .95rem; }
+.solution-list { color: var(--mist); padding-left: 20px; }
+.solution-list li + li { margin-top: 10px; }
+.solution-list li::marker { color: var(--ember); }
+.dialog-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding-top: 28px; margin-top: 30px; border-top: 1px solid var(--border); }
+@keyframes open-log { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@media(max-width:640px) { .dialog-content { padding: 24px; } .project-dialog { max-height: calc(100dvh - 24px); } .dialog-art { min-height: 170px; } }
+@media(prefers-reduced-motion:reduce), (hover:none) { .depth-card { transform: none; } .depth-card::after { display: none; } }
+@media(prefers-reduced-motion:reduce) { .project-dialog[open] { animation: none; } .depth-card, .header nav a::after { transition: none; } }

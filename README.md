@@ -48,3 +48,9 @@ Las pruebas cubren la alternativa con movimiento reducido, el cambio de preferen
 ## GitHub Pages
 
 El repositorio se llama `4drianC4/HelloWork`; Vite usa `base: '/HelloWork/'` respetando mayúsculas. Si se renombra, actualizar la base. No contiene servidor, secretos ni formulario con back-end. No cambiar la visibilidad del repositorio para habilitar Pages sin autorización.
+
+## Interacciones de la bitácora
+
+Las tarjetas de proyectos responden al cursor con una inclinación de hasta 2,5 grados y un reflejo tenue. El efecto se desactiva con movimiento reducido o entrada táctil. «Abrir bitácora» muestra un diálogo nativo con reto, participación y solución; Escape y el botón de cierre devuelven el foco al proyecto original. El fondo queda bloqueado mientras está abierto.
+
+El navbar marca la sección actual con `aria-current` y una línea decorativa indica el progreso de lectura. Su actualización se agrupa por frame y limpia listeners al desmontar. El contenido ampliado de cada proyecto se edita en `src/data/portfolio.ts` (`caseStudy`); los enlaces públicos siguen siendo opcionales.
