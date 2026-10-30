@@ -105,7 +105,7 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
         rock.rotation.z += step * speed * .6;
       });
     }
-    camera.position.z = size.width / size.height < .9 ? 18 : 12.8;
+    camera.position.z = compact || size.width / size.height < .9 ? 18 : 12.8;
   });
   return <>
     <ambientLight intensity={.65} />
@@ -149,6 +149,7 @@ export default function SolarCanvas({ active, compact }: { active: boolean; comp
   if (failed) return <SolarSystemFallback />;
   return <div className="solar-canvas" ref={container}>
     <Canvas
+      resize={{ offsetSize: true }}
       frameloop={active ? 'always' : 'never'}
       dpr={compact ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 16], fov: 45, near: .1, far: 60 }}
