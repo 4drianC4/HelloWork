@@ -1,0 +1,41 @@
+:root { --nav-height: 82px; }
+html { overflow-x: clip; scroll-padding-top: calc(var(--nav-height) + 20px); }
+.site-header { position: sticky; top: 0; z-index: 30; background: rgb(5 7 13 / 88%); backdrop-filter: blur(18px); border-bottom: 1px solid rgb(141 220 255 / 8%); }
+.site-header .header { padding-block: 24px; }
+.process-section { position: relative; background-image: radial-gradient(ellipse at 12% 40%, #dfd6be66, transparent 45%), repeating-linear-gradient(0deg, #18284603 0 1px, transparent 1px 4px); }
+.process-grid > li { position: relative; padding-left: 80px; }
+.process-orb { position: absolute; top: 6px; left: 0; width: 60px; height: 60px; border-radius: 50%; box-shadow: inset -13px -8px 16px #0009, 7px 11px 15px #14284620; }
+.process-orb-0 { background: radial-gradient(circle at 28% 32%, #584d47 0 6%, transparent 8%), radial-gradient(circle at 55% 63%, #80716b 0 9%, transparent 12%), radial-gradient(circle at 66% 22%, #76655a 0 8%, transparent 11%), radial-gradient(circle at 34% 30%, #c8b8a2, #837367 70%); }
+.process-orb-1 { background: radial-gradient(ellipse at 25% 28%, #eee8da 0 5%, transparent 10%), radial-gradient(ellipse at 45% 38%, #7c9571 0 14%, transparent 17%), radial-gradient(ellipse at 70% 65%, #698064 0 16%, transparent 20%), radial-gradient(circle at 33% 25%, #7ec4d9, #235477 65%, #142846); }
+.process-orb-2 { background: radial-gradient(circle at 35% 35%, #776354 0 8%, transparent 10%), radial-gradient(circle at 70% 60%, #635249 0 9%, transparent 12%), radial-gradient(circle at 25% 20%, #d6b495, #947a61 65%); }
+.process-orb-3 { background: radial-gradient(circle at 35% 35%, #a87b5e 0 8%, transparent 12%), radial-gradient(circle at 25% 20%, #d3a07b, #995938 65%); }
+.about { position: relative; padding-block: 42px 20px; }
+.about-grid { align-items: center; grid-template-columns: 1fr 1.25fr; gap: 32px; }
+.about h3 { font-size: clamp(1.7rem, 2.8vw, 2.5rem); margin-bottom: 24px; }
+.observatory-view { position: relative; align-self: stretch; min-height: 350px; margin-left: 0; }
+.observatory-view img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: left center; mask-image: radial-gradient(ellipse, #000 30%, #000d 55%, transparent 76%); }
+.about .location { color: var(--sky); }
+.experience-section { position: relative; isolation: isolate; }
+.experience-section::before { content: ''; position: absolute; inset: 0 -32px; z-index: -1; background: linear-gradient(#05070df0, #05070dbb 50%, #05070df0), url('/images/observatory.webp') left bottom / cover; opacity: .65; }
+.timeline { position: relative; border-left: 1px solid #8ddcff40; margin-left: 6px; padding-left: 28px; }
+.experience { position: relative; padding-block: 22px; }
+.experience::before { content: ''; position: absolute; width: 7px; height: 7px; left: -32px; top: 29px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 13px #8ddcff55; }
+.contact { isolation: isolate; position: relative; padding-block: 48px 44px; margin-top: 16px; }
+.contact::before { content: ''; position: absolute; inset: -20px -32px 0; z-index: -1; background: linear-gradient(90deg, #05070dec, #05070d88 58%, #05070d33), linear-gradient(0deg, #05070d44, #05070d66), url('/images/launch.webp') center 68% / cover; mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent); }
+.contact-row p { max-width: 560px; }
+.contact .social-links a { padding-block: 6px; }
+@media (max-width: 1000px) { .process-grid > li { padding-left: 0; padding-top: 74px; } .process-orb { top: 0; } }
+@media (max-width: 640px) {
+  :root { --nav-height: 125px; }
+  .site-header .header { padding-block: 14px; gap: 10px; }
+  .site-header nav { gap: 18px; }
+  .about-grid { grid-template-columns: 1fr; gap: 8px; }
+  .observatory-view { min-height: 240px; margin-inline: -18px; }
+  .observatory-view img { object-position: left center; }
+  .about h3 { font-size: 1.9rem; }
+  .experience-section::before { inset-inline: -18px; }
+  .contact::before { inset-inline: -18px; background-position: center, center, 65% center; }
+  .contact-row { padding-bottom: 30px; }
+  .timeline { padding-left: 22px; }
+  .experience::before { left: -26px; }
+}
