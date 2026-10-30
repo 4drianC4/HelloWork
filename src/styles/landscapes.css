@@ -4,11 +4,7 @@ html { overflow-x: clip; scroll-padding-top: calc(var(--nav-height) + 20px); }
 .site-header .header { padding-block: 24px; }
 .process-section { position: relative; background-image: radial-gradient(ellipse at 12% 40%, #dfd6be66, transparent 45%), repeating-linear-gradient(0deg, #18284603 0 1px, transparent 1px 4px); }
 .process-grid > li { position: relative; padding-left: 80px; }
-.process-orb { position: absolute; top: 6px; left: 0; width: 60px; height: 60px; border-radius: 50%; box-shadow: inset -13px -8px 16px #0009, 7px 11px 15px #14284620; }
-.process-orb-0 { background: radial-gradient(circle at 28% 32%, #584d47 0 6%, transparent 8%), radial-gradient(circle at 55% 63%, #80716b 0 9%, transparent 12%), radial-gradient(circle at 66% 22%, #76655a 0 8%, transparent 11%), radial-gradient(circle at 34% 30%, #c8b8a2, #837367 70%); }
-.process-orb-1 { background: radial-gradient(ellipse at 25% 28%, #eee8da 0 5%, transparent 10%), radial-gradient(ellipse at 45% 38%, #7c9571 0 14%, transparent 17%), radial-gradient(ellipse at 70% 65%, #698064 0 16%, transparent 20%), radial-gradient(circle at 33% 25%, #7ec4d9, #235477 65%, #142846); }
-.process-orb-2 { background: radial-gradient(circle at 35% 35%, #776354 0 8%, transparent 10%), radial-gradient(circle at 70% 60%, #635249 0 9%, transparent 12%), radial-gradient(circle at 25% 20%, #d6b495, #947a61 65%); }
-.process-orb-3 { background: radial-gradient(circle at 35% 35%, #a87b5e 0 8%, transparent 12%), radial-gradient(circle at 25% 20%, #d3a07b, #995938 65%); }
+.process-orb { position: absolute; top: 0; left: -6px; width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(4px 7px 6px #14284626); }
 .about { position: relative; padding-block: 42px 20px; }
 .about-grid { align-items: center; grid-template-columns: 1fr 1.25fr; gap: 32px; }
 .about h3 { font-size: clamp(1.7rem, 2.8vw, 2.5rem); margin-bottom: 24px; }
