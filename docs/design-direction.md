@@ -1,13 +1,13 @@
 ---
 name: hellowork-portfolio
-description: Diseñar y desarrollar el portafolio personal HelloWork de Adrián Cámara con dirección espacial inspirada en Outer Wilds. Aplicar al concepto, arte, tipografía, sistema solar 3D, animaciones y composición de este proyecto; no a portafolios genéricos.
+description: Diseñar y desarrollar el portafolio personal HelloWork de Adrian Camara con dirección espacial inspirada en Outer Wilds. Aplicar al concepto, arte, tipografía, sistema solar 3D, animaciones y composición de este proyecto; no a portafolios genéricos.
 ---
 
 # HelloWork: explorar lo desconocido
 
 ## Contexto y alcance
 
-Portafolio de Adrián Rafael Cámara Reque, desarrollador de Cochabamba, Bolivia. Su objetivo es conseguir clientes locales para desarrollo web, automatizaciones y sistemas a medida, mostrando también su experiencia docente y técnica. Repositorio existente: `hellowork`; destino previsto por el usuario: `https://4drianc4.github.io/HelloWork/`, con GitHub Pages y CI/CD de GitHub. No asumir que esta carpeta ya contiene el repositorio ni crear otro remoto.
+Portafolio de Adrian Rafael Camara Reque, desarrollador de Cochabamba, Bolivia. Su objetivo es conseguir clientes locales para desarrollo web, automatizaciones y sistemas a medida, mostrando también su experiencia docente y técnica. Repositorio existente: `hellowork`; destino previsto por el usuario: `https://4drianc4.github.io/HelloWork/`, con GitHub Pages y CI/CD de GitHub. No asumir que esta carpeta ya contiene el repositorio ni crear otro remoto.
 
 Esta skill fija la dirección de diseño; no implica publicar, configurar servicios externos ni construir el sitio en una solicitud que solo trate de diseño. Consultar el estado del proyecto antes de elegir herramientas. No imponer framework ni proveedor alternativo. Conservar compatibilidad con un sitio estático y la ruta base `/HelloWork/`.
 
@@ -25,11 +25,11 @@ Esta skill fija la dirección de diseño; no implica publicar, configurar servic
 
 Estas decisiones concretan el encargo; son ajustables si el usuario las modifica.
 
-Concepto: **HelloWork — una expedición hacia lo que podemos construir**. El visitante descubre el trabajo de Adrián como quien recorre una bitácora de exploración. Mantener calidez humana y asombro además de profundidad cósmica. Evitar la apariencia de dashboard militar, la estética de criptomonedas y el neón indiscriminado.
+Concepto: **HelloWork — una expedición hacia lo que podemos construir**. El visitante descubre el trabajo de Adrian como quien recorre una bitácora de exploración. Mantener calidez humana y asombro además de profundidad cósmica. Evitar la apariencia de dashboard militar, la estética de criptomonedas y el neón indiscriminado.
 
 Usar geometrías planetarias estilizadas, órbitas finas, luz estelar, espacio negativo y etiquetas de bitácora. Crear arte propio inspirado en la exploración; no depender de extraer modelos, música o interfaces del videojuego. No incorporar spoilers del juego. No añadir audio automático.
 
-La metáfora acompaña contenido claro: el visitante debe identificar nombre, servicios y contacto sin conocer Outer Wilds. Humor breve y secundario, sin prometer que Adrián domina cualquier problema. Expresar preparación a través de método, curiosidad y proyectos reales.
+La metáfora acompaña contenido claro: el visitante debe identificar nombre, servicios y contacto sin conocer Outer Wilds. Humor breve y secundario, sin prometer que Adrian domina cualquier problema. Expresar preparación a través de método, curiosidad y proyectos reales.
 
 ### Paleta inicial
 
@@ -58,7 +58,7 @@ Antes de implementar la tipografía definitiva, verificar contra referencias vis
 
 La lectura de «cargando al hacer scroll» propuesta es un **revelado progresivo de la escena**, no un cargador artificial que impida leer el contenido.
 
-- Portada: Adrián, propuesta de valor y CTA visibles desde el inicio; sistema solar pequeño o parcialmente revelado detrás/lateral, con una zona despejada para leer.
+- Portada: Adrian, propuesta de valor y CTA visibles desde el inicio; sistema solar pequeño o parcialmente revelado detrás/lateral, con una zona despejada para leer.
 - Primer tramo del scroll: aparecen estrella central, órbitas y planetas por etapas. La cámara se abre suavemente y muestra el sistema completo.
 - Tramo posterior: la escena pierde protagonismo para dejar leer los proyectos; las secciones siguen el orden acordado. Se puede mantener una presencia ambiental discreta sin fijar una escena costosa durante toda la página.
 - Estrellas de distintos colores y pequeñas ráfagas radiales en la presentación: interpretar «explotando» como expansión suave de partículas, sin destellos rápidos ni explosiones que tapen el texto.
@@ -78,7 +78,7 @@ El usuario aprobó la muestra completa: conservar composición, arte, paleta y a
 - Servicios y proyectos deben usar tarjetas con superficies oscuras sutiles y bordes finos. Iconos de trazo con fondo transparente, sin discos blancos, cuadrados sólidos ni placas rígidas detrás. Los contenedores de tarjeta sí pueden tener fondo; la restricción se refiere al icono.
 - Incluir en trayectoria Digital Services, Cochabamba: Chief Technology Officer (CTO), diciembre 2025–julio 2026; instructor, febrero 2025–presente, según el CV aportado. Resumir dirección de equipo ágil de 10 desarrolladores, inventarios, landing pages, automatizaciones con Fiber (Go) y React, arquitectura y CI/CD; reducción de tiempos de entrega del 50% y ciclos de 3 meses según el CV. Para docencia, capacitación de más de 15 estudiantes en React, Next.js y Go; planes de estudio y tasa de aprobación/retención del 80% según el CV. No transformar estas métricas del CV en resultados de clientes independientes. En una muestra visual resumida priorizar empresa, roles, fechas y responsabilidades; ampliar detalles en el sitio final o CV.
 
-Fuente de experiencia: CV aportado por Adrián y leído durante la definición del portafolio. Las fechas «presente» reflejan el CV y deben actualizarse si el usuario indica cambios.
+Fuente de experiencia: CV aportado por Adrian y leído durante la definición del portafolio. Las fechas «presente» reflejan el CV y deben actualizarse si el usuario indica cambios.
 
 1. Portada: quién es, qué resuelve, «Ver proyectos» y «Cuéntame tu idea».
 2. Proyectos seleccionados: problema, participación personal, solución y evidencia. Distinguir trabajo propio y de equipo.

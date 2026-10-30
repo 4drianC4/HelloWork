@@ -1,6 +1,6 @@
 # HelloWork
 
-Portafolio de Adrián Cámara, desarrollador de software en Cochabamba, Bolivia.
+Portafolio de Adrian Camara, desarrollador de software en Cochabamba, Bolivia.
 
 ## Desarrollo
 

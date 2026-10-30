@@ -1,5 +1,5 @@
 export const profile = {
-  name: 'Adrián Cámara',
+  name: 'Adrian Camara',
   location: 'Cochabamba, Bolivia',
   email: 'camararequeadrianrafael@gmail.com',
   github: 'https://github.com/4drianC4',

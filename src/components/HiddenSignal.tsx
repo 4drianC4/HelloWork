@@ -27,7 +27,7 @@ export function HiddenSignal() {
         <h2 id="signal-title">Señal encontrada</h2>
         <p>La curiosidad también forma parte de mi proceso de desarrollo.</p>
         <p>Gracias por explorar un poco más allá.</p>
-        <span className="signal-signature">Adrián · HelloWork</span>
+        <span className="signal-signature">Adrian · HelloWork</span>
       </div>
     </dialog>
   </div>;

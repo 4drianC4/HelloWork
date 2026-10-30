@@ -39,7 +39,7 @@ export function Header() {
   }, []);
 
   return <header className="site-header" ref={header}><div className="header wrap">
-    <a className="brand" href="#inicio" aria-label="Adrián Cámara, inicio" aria-current={active === 'inicio' ? 'location' : undefined}>Adrián Cámara<span aria-hidden="true">.</span></a>
+    <a className="brand" href="#inicio" aria-label="Adrian Camara, inicio" aria-current={active === 'inicio' ? 'location' : undefined}>Adrian Camara<span aria-hidden="true">.</span></a>
     <nav aria-label="Navegación principal">{links.map(link => <a key={link.id} href={`#${link.id}`} aria-current={active === link.id ? 'location' : undefined}>{link.label}</a>)}</nav>
   </div><span className="reading-progress" ref={progress} aria-hidden="true" /></header>;
 }
