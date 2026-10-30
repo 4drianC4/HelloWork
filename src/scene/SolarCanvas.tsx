@@ -105,6 +105,14 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
     <group ref={group} rotation={[.62, -.3, -.25]}>
       <mesh><sphereGeometry args={[.68, 48, 32]} /><meshBasicMaterial map={sun} color="#ffdb9b" /></mesh>
       <sprite scale={[4.8, 4.8, 1]}><spriteMaterial map={glow} blending={AdditiveBlending} depthWrite={false} transparent opacity={.7} /></sprite>
+      {Array.from({ length: compact ? 30 : 65 }, (_, i) => {
+        const angle = i * 2.39996;
+        const radius = 3.1 + (i % 9) * .19;
+        return <mesh key={`rock-${i}`} position={[Math.cos(angle) * radius, Math.sin(i * 7) * .24, Math.sin(angle) * radius]} rotation={[i, i * .7, i * .3]} scale={[1, .7 + (i % 3) * .2, .8]}>
+          <icosahedronGeometry args={[.045 + (i % 5) * .023, 0]} />
+          <meshStandardMaterial color={i % 3 === 0 ? '#b39379' : '#6b605a'} roughness={1} flatShading />
+        </mesh>;
+      })}
       {[1.65, 2.65, 3.85, 5.15].map((radius, i) => <Orbit key={radius} radius={radius} index={i} progress={progress} />)}
       <Planet kind="rock" radius={1.65} size={.23} angle={-1.3} index={0} progress={progress} compact={compact} />
       <Planet kind="rock" radius={2.65} size={.48} angle={2.5} index={1} progress={progress} compact={compact} />
@@ -115,7 +123,7 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
 }
 
 export default function SolarCanvas({ active, compact }: { active: boolean; compact: boolean }) {
-  const progress = useRef({ value: .24 });
+  const progress = useRef({ value: .7 });
   const invalidate = useRef<(() => void) | undefined>(undefined);
   const container = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
@@ -124,11 +132,11 @@ export default function SolarCanvas({ active, compact }: { active: boolean; comp
     if (!active || failed) return;
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      const hero = container.current?.closest('.hero');
+      const hero = container.current?.closest('.hero-expedition');
       if (!hero) return;
       gsap.to(progress.current, {
         value: 1, ease: 'none',
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom 65%', scrub: .65, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 1.8, invalidateOnRefresh: true },
         onUpdate: () => invalidate.current?.(),
       });
     });

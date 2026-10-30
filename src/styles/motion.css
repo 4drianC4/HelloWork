@@ -23,3 +23,12 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* A native sticky stage gives the expedition room to unfold without trapping scroll. */
+.hero-expedition { position: relative; min-height: 180vh; }
+.hero-sticky { position: sticky; top: 0; min-height: 90vh; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 12px; }
+.hero-sticky::before { content: ''; position: absolute; z-index: -1; inset: 0 -4%; pointer-events: none; background: radial-gradient(ellipse at 77% 38%, #234b734d, transparent 48%), radial-gradient(ellipse at 65% 56%, #84503322, transparent 33%), radial-gradient(ellipse at 90% 70%, #17435b44, transparent 40%); }
+.hero-sticky h1 { font-size: clamp(2.5rem, 4.1vw, 3.9rem); }
+.hero-sticky .solar-stage { height: min(70vh, 650px); }
+@media(max-width:640px) { .hero-expedition { min-height: 170vh; } .hero-sticky { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; gap: 0; } .hero-sticky .solar-stage { height: 330px; } .hero-sticky h1 { font-size: 2.5rem; } .hero-sticky .scroll-cue { margin-top: 20px; } }
+@media(prefers-reduced-motion:reduce) { .hero-expedition { min-height: 0; } .hero-sticky { position: relative; } }
