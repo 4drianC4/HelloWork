@@ -85,7 +85,7 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
 }
 @media(max-width:640px) { .about-visual { min-height: 430px; } .about-visual .observatory-view { margin: 0; inset: 0 -18px; } .dialog-screenshot { padding: 50px 12px 0; } }
 
-/* Warm, solid surfaces: the work feels tangible against the night sky. */
+/* Solid, readable surfaces against the night sky. */
 .project-card, .service-card, .portrait-card {
   --card-ink: #292c32;
   --card-muted: #535860;
@@ -97,19 +97,24 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
   border-radius: 14px;
   box-shadow: 0 12px 32px #0003;
 }
-.service-card:nth-child(2) { background: #e8eee5; }
-.service-card:nth-child(3) { background: #f3e5da; }
+.project-card, .service-card {
+  --card-ink: #202e3d;
+  --card-muted: #4b5d6e;
+  --card-accent: #285a7d;
+  --border: #c5d3df;
+  background: #e8eff5;
+}
 .project-card p, .service-card p, .portrait-card figcaption span { color: var(--card-muted); }
 .project-card .line-icon, .service-card .line-icon,
 .project-body .role, .project-card .text-link { color: var(--card-accent); }
-.project-card .tags li { color: #4e514d; background: #ece5d9; border-color: #d6cbbd; }
-.project-card .text-link:hover { color: #532811; text-decoration: underline; text-underline-offset: 4px; }
-.project-card:focus-within { border-color: #854424; }
-.project-card button:focus-visible { outline-color: #854424; }
+.project-card .tags li { color: #42596c; background: #dbe6ef; border-color: #c5d3df; }
+.project-card .text-link:hover { color: #163d5a; text-decoration: underline; text-underline-offset: 4px; }
+.project-card:focus-within { border-color: #285a7d; }
+.project-card button:focus-visible { outline-color: #285a7d; }
 .project-card.depth-card::after { background: none; }
-.project-screenshot, .project-screenshot-automation, .project-screenshot-inventory { background: #e8e1d6; }
-.screenshot-hint { background: #fff9f0; color: #713b22; border-color: #d6cbbd; }
-.project-art, .project-art-automation, .project-art-inventory { background: #e8e1d6; color: #854424; }
+.project-screenshot, .project-screenshot-automation, .project-screenshot-inventory { background: #dbe5ee; }
+.screenshot-hint { background: #f4f8fc; color: #285a7d; border-color: #c5d3df; }
+.project-art, .project-art-automation, .project-art-inventory { background: #dbe5ee; color: #285a7d; }
 .portrait-card:hover { border-color: #d6b58d; box-shadow: 0 24px 48px #0005; }
 .portrait-card::after { display: none; }
 .signal-star { width: 64px; height: 64px; }
