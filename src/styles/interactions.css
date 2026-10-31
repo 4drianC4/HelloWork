@@ -127,3 +127,6 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
   .signal-star:hover img, .signal-star:focus-visible img { transform: rotate(12deg) scale(1.1); filter: brightness(0) invert(92%) sepia(20%) saturate(650%) hue-rotate(337deg) drop-shadow(0 0 5px #efa66a66); }
   .signal-star.is-holding img { transform: rotate(32deg) scale(1.18); }
 }
+
+.about-contact-link { color: var(--sky); text-decoration: underline; text-underline-offset: 4px; }
+.about-contact-link:hover { color: var(--starlight); }
