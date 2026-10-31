@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Sparkles, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export function HiddenSignal() {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -18,11 +18,11 @@ export function HiddenSignal() {
         if (event.button !== 0) return;
         stop(); setHolding(true); timer.current = setTimeout(open, 700);
       }} onPointerUp={stop} onPointerCancel={stop} onPointerLeave={stop} onBlur={stop}>
-      <Sparkles size={21} strokeWidth={1.4} aria-hidden="true" />
+      <img src={`${import.meta.env.BASE_URL}images/hidden-star.png`} alt="" width="60" height="60" draggable={false} />
     </button>
     <dialog ref={dialog} className="project-dialog signal-dialog" aria-labelledby="signal-title" onClose={() => trigger.current?.focus({ preventScroll: true })}>
       <form method="dialog"><button className="dialog-close" aria-label="Cerrar señal" autoFocus><X size={22} /></button></form>
-      <div className="signal-message"><Sparkles size={38} strokeWidth={1} aria-hidden="true" />
+      <div className="signal-message"><img className="signal-emblem" src={`${import.meta.env.BASE_URL}images/hidden-star.png`} alt="" width="80" height="80" />
         <p className="eyebrow">Transmisión recibida / 001</p>
         <h2 id="signal-title">Señal encontrada</h2>
         <p>La curiosidad también forma parte de mi proceso de desarrollo.</p>
