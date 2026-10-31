@@ -21,7 +21,7 @@ export function surfaceElevation(kind: PlanetKind, u: number, v: number) {
 
 export function planetTexture(kind: PlanetKind, relief = false) {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024; canvas.height = 512;
+  canvas.width = 512; canvas.height = 256;
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Canvas 2D unavailable');
   const pixels = context.createImageData(canvas.width, canvas.height);
