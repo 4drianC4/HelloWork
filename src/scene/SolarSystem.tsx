@@ -23,7 +23,7 @@ export function SolarSystem() {
   return <div className="solar-stage" ref={container} aria-hidden="true">
     {reducedMotion ? <SolarSystemFallback /> :
       <SceneBoundary fallback={<SolarSystemFallback />}>
-        <Suspense fallback={<SolarSystemFallback />}>
+        <Suspense fallback={<div className="solar-loading" />}>
           <SolarCanvas active={visible && pageVisible} compact={compact} />
         </Suspense>
       </SceneBoundary>}

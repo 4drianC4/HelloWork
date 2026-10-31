@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { MutableRefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Line } from '@react-three/drei';
-import { AdditiveBlending, Color, DoubleSide, Group, MathUtils, Mesh, Vector3 } from 'three';
-import { glowTexture, planetTexture } from './textures';
+import { AdditiveBlending, Color, DoubleSide, Group, MathUtils, Mesh, SphereGeometry, CatmullRomCurve3, MeshBasicMaterial, Vector3 } from 'three';
+import { glowTexture, planetTexture, surfaceElevation } from './textures';
 import type { PlanetKind } from './textures';
 import { SolarSystemFallback } from './SolarSystemFallback';
 import { CosmicBackdrop } from './CosmicBackdrop';
@@ -33,6 +33,19 @@ function Planet({ kind, radius, size, angle, index, progress, compact }: {
   const mesh = useRef<Mesh>(null);
   const texture = useMemo(() => planetTexture(kind), [kind]);
   useEffect(() => () => texture.dispose(), [texture]);
+  const relief = useMemo(() => planetTexture(kind, true), [kind]);
+  const geometry = useMemo(() => {
+    const sphere = new SphereGeometry(size, compact ? 64 : 128, compact ? 48 : 96);
+    const position = sphere.attributes.position, uv = sphere.attributes.uv;
+    const vertex = new Vector3();
+    for (let i = 0; i < position.count; i++) {
+      vertex.fromBufferAttribute(position, i).normalize().multiplyScalar(size * (1 + surfaceElevation(kind, uv.getX(i), uv.getY(i))));
+      position.setXYZ(i, vertex.x, vertex.y, vertex.z);
+    }
+    sphere.computeVertexNormals();
+    return sphere;
+  }, [kind, size, compact]);
+  useEffect(() => () => { relief.dispose(); geometry.dispose(); }, [relief, geometry]);
   const elapsed = useRef(0);
   useFrame((_, delta) => {
     elapsed.current += Math.min(delta, .05);
@@ -47,10 +60,10 @@ function Planet({ kind, radius, size, angle, index, progress, compact }: {
     mesh.current.rotation.y = elapsed.current * .0455 + angle;
   });
   return <group ref={group}>
-    <mesh ref={mesh} rotation={[.12, angle, .08]}>
-      <sphereGeometry args={[size, compact ? 32 : 64, compact ? 24 : 48]} />
-      <meshStandardMaterial map={texture} bumpMap={texture} bumpScale={kind === 'gas' ? .015 : .09} roughness={.88} metalness={0} />
+    <mesh ref={mesh} geometry={geometry} rotation={[.12, angle, .08]}>
+      <meshStandardMaterial map={texture} bumpMap={relief} bumpScale={kind === 'gas' ? 0 : .035} roughness={kind === 'ocean' ? .58 : .9} metalness={0} />
     </mesh>
+    {kind === 'ocean' && <Clouds size={size} compact={compact} />}
     {kind === 'gas' && <group rotation={[.22, 0, -.25]}>
       {[1.5, 1.72, 1.95].map((factor, i) => <mesh key={factor} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[size * factor, size * (factor + .13), compact ? 64 : 128]} />
@@ -58,6 +71,46 @@ function Planet({ kind, radius, size, angle, index, progress, compact }: {
       </mesh>)}
     </group>}
   </group>;
+}
+
+function Clouds({ size, compact }: { size: number; compact: boolean }) {
+  const mesh = useRef<Mesh>(null);
+  const texture = useMemo(() => planetTexture('cloud'), []);
+  useEffect(() => () => texture.dispose(), [texture]);
+  useFrame((_, delta) => { if (mesh.current) mesh.current.rotation.y += Math.min(delta, .05) * .055; });
+  return <mesh ref={mesh} rotation={[.12, .5, .08]}>
+    <sphereGeometry args={[size * 1.065, compact ? 48 : 96, compact ? 32 : 64]} />
+    <meshStandardMaterial map={texture} transparent opacity={.8} depthWrite={false} roughness={1} />
+  </mesh>;
+}
+
+function SolarArc({ index }: { index: number }) {
+  const group = useRef<Group>(null);
+  const material = useRef<MeshBasicMaterial>(null);
+  const elapsed = useRef(index * 5);
+  const curve = useMemo(() => new CatmullRomCurve3(Array.from({ length: 41 }, (_, i) => {
+    const t = i / 40 * Math.PI;
+    return new Vector3(Math.cos(t) * .32, .78 + Math.sin(t) * .48, Math.sin(t * 2) * .06);
+  })), []);
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, .05);
+    const phase = elapsed.current % 18;
+    const strength = phase < 7 ? Math.sin(phase / 7 * Math.PI) : 0;
+    if (group.current) { group.current.visible = strength > .01; group.current.scale.y = .7 + strength * .3; }
+    if (material.current) material.current.opacity = strength * .85;
+  });
+  return <group rotation={[.3, index * 1.9, index * 2.2]}><group ref={group}>
+    <mesh><tubeGeometry args={[curve, 48, .018, 6, false]} />
+      <meshBasicMaterial ref={material} color="#ffb34f" transparent blending={AdditiveBlending} depthWrite={false} toneMapped={false} />
+    </mesh>
+  </group></group>;
+}
+
+// Reveal only after actual frames have uploaded textures and rendered the scene.
+function SceneReady({ onReady }: { onReady: () => void }) {
+  const frames = useRef(0);
+  useFrame(() => { if (++frames.current === 3) onReady(); });
+  return null;
 }
 
 function StarField({ compact, progress }: { compact: boolean; progress: Progress }) {
@@ -70,7 +123,7 @@ function StarField({ compact, progress }: { compact: boolean; progress: Progress
     for (let i = 0; i < count; i++) {
       const t = i * 2.399963;
       const r = 3 + ((i * 137) % 101) / 101 * 7;
-      positions.set([Math.cos(t) * r, Math.sin(t) * r * .62, -2 - (i % 7)], i * 3);
+      positions.set([Math.cos(t) * r, Math.sin(t) * r * .62, -10 - (i % 7)], i * 3);
       new Color(palette[i % palette.length]).toArray(colors, i * 3);
     }
     return [positions, colors];
@@ -108,13 +161,14 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
     camera.position.z = compact || size.width / size.height < .9 ? 18 : 12.8;
   });
   return <>
-    <ambientLight intensity={.65} />
-    <directionalLight position={[-3, 5, 6]} intensity={2.1} color="#d9eaff" />
+    <ambientLight intensity={.38} />
+    <directionalLight position={[-3, 5, 6]} intensity={1.6} color="#d9eaff" />
     <pointLight position={[0, .5, 0]} color="#ffc181" intensity={22} decay={2} />
     <CosmicBackdrop compact={compact} />
     <StarField compact={compact} progress={progress} />
     <group ref={group} rotation={[.34, -.12, .18]}>
       <mesh><sphereGeometry args={[.85, 48, 32]} /><meshBasicMaterial map={sun} color="#ffdb9b" /></mesh>
+      {[0, 1, 2].map(index => <SolarArc key={index} index={index} />)}
       <sprite scale={[4.8, 4.8, 1]}><spriteMaterial map={glow} blending={AdditiveBlending} depthWrite={false} transparent opacity={.7} /></sprite>
       <group ref={asteroids}>{Array.from({ length: compact ? 30 : 65 }, (_, i) => {
         const angle = i * 2.39996;
@@ -136,6 +190,7 @@ function System({ progress, compact }: { progress: Progress; compact: boolean })
 export default function SolarCanvas({ active, compact }: { active: boolean; compact: boolean }) {
   const progress = useRef({ value: 1 });
   const container = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -147,15 +202,15 @@ export default function SolarCanvas({ active, compact }: { active: boolean; comp
   }, [failed]);
 
   if (failed) return <SolarSystemFallback />;
-  return <div className="solar-canvas" ref={container}>
+  return <div className={`solar-canvas${ready ? ' is-ready' : ''}`} ref={container}>
     <Canvas
       resize={{ offsetSize: true }}
       frameloop={active ? 'always' : 'never'}
-      dpr={compact ? 1 : [1, 1.5]}
+      dpr={compact ? [1, 1.5] : [1, 1.75]}
       camera={{ position: [0, 0, 16], fov: 45, near: .1, far: 60 }}
-      gl={{ alpha: true, antialias: !compact, powerPreference: 'low-power' }}
+      gl={{ alpha: true, antialias: true, powerPreference: 'low-power' }}
       fallback={<SolarSystemFallback />}
       onCreated={({ invalidate: draw, gl }) => { gl.setClearColor(0x05070d, 0); draw(); }}
-    ><System progress={progress} compact={compact} /></Canvas>
+    ><System progress={progress} compact={compact} /><SceneReady onReady={() => setReady(true)} /></Canvas>
   </div>;
 }
