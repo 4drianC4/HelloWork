@@ -14,6 +14,6 @@ export function App() {
     <a className="skip-link" href="#contenido">Saltar al contenido</a>
     <Header />
     <main id="contenido"><Hero /><Projects /><Services /><Process /><About /><Experience /><Contact /></main>
-    <footer className="footer wrap"><span>© {new Date().getFullYear()} Adrian Camara</span><span>HelloWork · Una expedición en construcción</span></footer>
+    <footer className="footer wrap"><span>© {new Date().getFullYear()} Adrian Camara</span><span>HelloWork · La curiosidad marca el rumbo</span></footer>
   </>;
 }
