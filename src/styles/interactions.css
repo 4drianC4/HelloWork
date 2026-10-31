@@ -77,4 +77,10 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
 .portrait-card > img { display: block; width: 100%; height: 320px; object-fit: cover; object-position: center 30%; }
 .portrait-card figcaption { padding: 16px 20px; font-weight: 600; }
 .portrait-card figcaption span { display: block; color: var(--mist); font: .6rem var(--font-mono); margin-top: 8px; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .portrait-card { transition: transform .45s ease, border-color .45s ease, box-shadow .45s ease; }
+  .portrait-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(135deg, #8ddcff1f, transparent 45%, #efa66a0a); opacity: 0; transition: opacity .45s ease; }
+  .portrait-card:hover { transform: translateY(-8px) rotate(0deg) scale(1.015); border-color: var(--sky); box-shadow: 0 28px 65px #0009, 0 0 24px #8ddcff1c; }
+  .portrait-card:hover::after { opacity: 1; }
+}
 @media(max-width:640px) { .about-visual { min-height: 430px; } .about-visual .observatory-view { margin: 0; inset: 0 -18px; } .dialog-screenshot { padding: 50px 12px 0; } }
