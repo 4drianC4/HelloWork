@@ -33,11 +33,11 @@ El build ejecuta TypeScript y genera `dist/`. GitHub Actions ejecuta pruebas y b
 
 ## Estado de esta entrega
 
-Estructura funcional de una sola página con contenido del CV, iconos transparentes y enlaces de contacto reales. Los paneles de proyecto son composiciones abstractas, no capturas reales. No se incluyen enlaces de demostración inventados.
+Estructura funcional de una sola página con contenido del CV, iconos transparentes y enlaces de contacto reales. Las tarjetas y bitácoras incluyen capturas aportadas por Adrian de Ivento, inventarios y Paseo Aranjuez, con acceso a la imagen completa. Sobre mí incluye su retrato. No se incluyen enlaces de demostración inventados.
 
 La escena usa Three.js, React Three Fiber y Drei; GSAP anima las entradas de texto. El sistema solar se presenta completo y mantiene órbitas y rotaciones lentas independientes del scroll. Las texturas son generadas localmente, sin descargar recursos del videojuego. El código 3D se carga por separado; anima mientras está visible y se pausa fuera de pantalla o con la pestaña oculta. Móvil reduce resolución, geometría y estrellas.
 
-Con movimiento reducido se usa directamente la representación CSS estática y se desactivan entradas animadas. Errores de carga, falta de WebGL o pérdida del contexto conservan una alternativa visual sin eliminar el contenido. Las fuentes actuales siguen siendo fallbacks locales temporales; no son las fuentes exactas de Outer Wilds. Los fondos de observatorio y lanzamiento y los PNG de las etapas ya están integrados. Como mejoras futuras quedan las capturas autorizadas de proyectos y, si se desea, el PDF público del CV.
+Con movimiento reducido se usa directamente la representación CSS estática y se desactivan entradas animadas. Errores de carga, falta de WebGL o pérdida del contexto conservan una alternativa visual sin eliminar el contenido. Las fuentes actuales siguen siendo fallbacks locales temporales; no son las fuentes exactas de Outer Wilds. Los fondos de observatorio y lanzamiento y los PNG de las etapas ya están integrados. Como mejora futura queda, si se desea, el PDF público del CV.
 
 ```sh
 npm test

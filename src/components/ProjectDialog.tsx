@@ -33,7 +33,10 @@ export function ProjectDialog({ project, onDismiss }: { project: Project | null;
   }}>
     {project && <div className="dialog-inner">
       <button type="button" className="dialog-close" aria-label="Cerrar bitácora" onClick={onDismiss} autoFocus><X size={22} /></button>
-      <div className={`dialog-art project-art-${project.category}`} aria-hidden="true">{Icon && <Icon size={64} strokeWidth={1} />}<span>HELLOWORK / BITÁCORA DE PROYECTO</span></div>
+      {project.screenshot ? <figure className="dialog-screenshot"><a href={`${import.meta.env.BASE_URL}${project.screenshot.src}`} target="_blank" rel="noreferrer" aria-label={`Abrir captura completa de ${project.title} en otra pestaña`}>
+        <img src={`${import.meta.env.BASE_URL}${project.screenshot.src}`} alt={project.screenshot.alt} decoding="async" />
+        <span className="capture-caption">Ver captura completa <ArrowUpRight size={14} aria-hidden="true" /></span>
+      </a></figure> : <div className={`dialog-art project-art-${project.category}`} aria-hidden="true">{Icon && <Icon size={64} strokeWidth={1} />}<span>HELLOWORK / BITÁCORA DE PROYECTO</span></div>}
       <div className="dialog-content">
         <p className="eyebrow">{project.role}</p>
         <h2 id="dialog-title">{project.title}</h2>

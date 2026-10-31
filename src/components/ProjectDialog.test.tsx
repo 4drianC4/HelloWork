@@ -47,7 +47,7 @@ it('identifies team participation and offers a working close action', async () =
   const dismiss = vi.fn();
   await act(async () => root.render(<ProjectDialog project={projects[2]} onDismiss={dismiss} />));
   expect(host.textContent).toContain('equipo ágil de 10 desarrolladores');
-  expect(host.querySelector('a')?.getAttribute('href')).toMatch(/^mailto:/);
+  expect(host.querySelector('a[href^="mailto:"]')).not.toBeNull();
   await act(async () => (host.querySelector('.dialog-close') as HTMLButtonElement).click());
   expect(dismiss).toHaveBeenCalledOnce();
 });

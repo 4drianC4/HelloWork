@@ -8,7 +8,10 @@ export function ProjectCard({ project, onOpen }: { project: Project; onOpen: (pr
   const depth = useCardDepth();
   const Icon = projectIcons[project.category];
   return <article className="project-card depth-card" {...depth}>
-    <div className={`project-art project-art-${project.category}`} aria-hidden="true"><Icon size={60} strokeWidth={1} /><span>{project.technologies.join(' / ')}</span></div>
+    {project.screenshot ? <button type="button" className={`project-screenshot project-screenshot-${project.category}`} aria-label={`Ver captura y bitácora: ${project.title}`} aria-haspopup="dialog" onClick={() => onOpen(project)}>
+      <img src={`${import.meta.env.BASE_URL}${project.screenshot.src}`} alt={project.screenshot.alt} width="640" height="360" loading="lazy" decoding="async" />
+      <span className="screenshot-hint">Explorar proyecto <ArrowUpRight size={14} aria-hidden="true" /></span>
+    </button> : <div className={`project-art project-art-${project.category}`} aria-hidden="true"><Icon size={60} strokeWidth={1} /><span>{project.technologies.join(' / ')}</span></div>}
     <div className="project-body"><Icon className="line-icon" size={26} strokeWidth={1.4} aria-hidden="true" />
       <h3>{project.title}</h3><p className="role">{project.role}</p><p>{project.description}</p>
       <ul className="tags" aria-label="Tecnologías">{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>

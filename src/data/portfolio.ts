@@ -14,12 +14,14 @@ export interface Project {
   technologies: string[];
   category: 'events' | 'automation' | 'inventory';
   url?: string;
+  screenshot?: { src: string; alt: string };
   caseStudy: { challenge: string; contribution: string; solution: string[] };
 }
 
 export const projects: Project[] = [
   {
     id: 'ivento', title: 'Ivento', category: 'events',
+    screenshot: { src: 'images/projects/ivento.webp', alt: 'Panel de Ivento con espacios, eventos y tickets.' },
     role: 'Desarrollo full-stack',
     description: 'Módulos para gestionar eventos, personalizar el mapa de recintos y organizar registros de asistentes.',
     technologies: ['Angular', 'Express', 'PostgreSQL'],
@@ -31,6 +33,7 @@ export const projects: Project[] = [
   },
   {
     id: 'aranjuez', title: 'Asistente Paseo Aranjuez', category: 'automation',
+    screenshot: { src: 'images/projects/aranjuez.webp', alt: 'Flujo de n8n del asistente de Paseo Aranjuez con agentes para gastronomía, retail, cine y consultas generales.' },
     role: 'Desarrollo de automatización',
     description: 'Asistente conversacional para responder consultas de visitantes mediante flujos automatizados e inteligencia artificial.',
     technologies: ['n8n', 'JavaScript', 'IA'],
@@ -42,12 +45,13 @@ export const projects: Project[] = [
   },
   {
     id: 'inventarios', title: 'Inventarios · Digital Services', category: 'inventory',
+    screenshot: { src: 'images/projects/inventarios.webp', alt: 'Pantalla de ventas del sistema de gestión con filtros, estados e historial por sucursal.' },
     role: 'Dirección técnica · trabajo en equipo',
     description: 'Dirección del equipo y arquitectura técnica para sistemas de inventario, páginas web y automatizaciones corporativas.',
     technologies: ['React', 'Go / Fiber', 'CI/CD'],
     caseStudy: {
       challenge: 'Coordinar la construcción y entrega de sistemas de inventario y otras herramientas corporativas en Digital Services.',
-      contribution: 'Como CTO dirigí un equipo ágil de 10 desarrolladores. Mi participación se centró en la dirección técnica, la arquitectura y los flujos de integración y despliegue.',
+      contribution: 'Como Director de Digital Services Develop dirijo un equipo ágil de 10 desarrolladores. Mi participación se centra en la dirección técnica, la arquitectura y los flujos de integración y despliegue.',
       solution: ['Desarrollo en equipo de sistemas de gestión de inventario con React y Fiber (Go).', 'Definición de arquitectura técnica.', 'Flujos de integración y despliegue continuo para organizar las entregas.'],
     },
   },
@@ -67,7 +71,7 @@ export const process = [
 ];
 
 export const experience = [
-  { company: 'Digital Services', role: 'Chief Technology Officer (CTO)', dates: 'Dic 2025 — Jul 2026', description: 'Dirigí un equipo ágil de 10 desarrolladores en inventarios, landing pages y automatizaciones con Fiber (Go) y React. Definí arquitectura y CI/CD, reduciendo los tiempos de entrega en un 50%, con ciclos de lanzamiento de 3 meses.' },
+  { company: 'Digital Services Develop', role: 'Director', dates: 'Dic 2025 — Presente', description: 'Dirijo un equipo ágil de 10 desarrolladores en inventarios, landing pages y automatizaciones con Fiber (Go) y React. Definí arquitectura y CI/CD, reduciendo los tiempos de entrega en un 50%, con ciclos de lanzamiento de 3 meses.' },
   { company: 'Digital Services', role: 'Instructor', dates: 'Feb 2025 — Presente', description: 'Capacitación de más de 15 estudiantes en React, Next.js y Go. Diseño de planes de estudio prácticos con una tasa de aprobación y retención del 80%.' },
   { company: 'Watcheye', role: 'Pasante de desarrollo back-end', dates: 'Jul 2025 — Ene 2026', description: 'Desarrollo de dos APIs REST con Go para ventas y gestión de usuarios. Resolución de más de 50 tickets de soporte técnico del servidor.' },
 ];
