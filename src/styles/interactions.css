@@ -102,7 +102,7 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
   --card-muted: #4b5d6e;
   --card-accent: #285a7d;
   --border: #c5d3df;
-  background: #e8eff5;
+  background: var(--paper);
 }
 .project-card p, .service-card p, .portrait-card figcaption span { color: var(--card-muted); }
 .project-card .line-icon, .service-card .line-icon,
@@ -112,9 +112,9 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
 .project-card:focus-within { border-color: #285a7d; }
 .project-card button:focus-visible { outline-color: #285a7d; }
 .project-card.depth-card::after { background: none; }
-.project-screenshot, .project-screenshot-automation, .project-screenshot-inventory { background: #dbe5ee; }
+.project-screenshot, .project-screenshot-automation, .project-screenshot-inventory { background: var(--paper); }
 .screenshot-hint { background: #f4f8fc; color: #285a7d; border-color: #c5d3df; }
-.project-art, .project-art-automation, .project-art-inventory { background: #dbe5ee; color: #285a7d; }
+.project-art, .project-art-automation, .project-art-inventory { background: var(--paper); color: #285a7d; }
 .portrait-card:hover { border-color: #d6b58d; box-shadow: 0 24px 48px #0005; }
 .portrait-card::after { display: none; }
 .signal-star { width: 64px; height: 64px; }
