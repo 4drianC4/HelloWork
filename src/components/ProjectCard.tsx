@@ -1,21 +1,25 @@
-import { ArrowUpRight, Boxes, CalendarDays, Workflow } from 'lucide-react';
+import { ArrowUpRight, Boxes, CalendarDays, Satellite, UsersRound, Workflow } from 'lucide-react';
 import type { Project } from '../data/portfolio';
 import { useCardDepth } from '../hooks/useCardDepth';
 
-export const projectIcons = { events: CalendarDays, automation: Workflow, inventory: Boxes };
+export const projectIcons = { events: CalendarDays, automation: Workflow, inventory: Boxes, monitoring: Satellite, community: UsersRound };
 
 export function ProjectCard({ project, onOpen }: { project: Project; onOpen: (project: Project) => void }) {
   const depth = useCardDepth();
   const Icon = projectIcons[project.category];
+  const demo = project.links?.[0];
   return <article className="project-card depth-card" {...depth}>
     {project.screenshot ? <button type="button" className={`project-screenshot project-screenshot-${project.category}`} aria-label={`Ver captura y bitácora: ${project.title}`} aria-haspopup="dialog" onClick={() => onOpen(project)}>
       <img src={`${import.meta.env.BASE_URL}${project.screenshot.src}`} alt={project.screenshot.alt} width="640" height="360" loading="lazy" decoding="async" />
       <span className="screenshot-hint">Explorar proyecto <ArrowUpRight size={14} aria-hidden="true" /></span>
     </button> : <div className={`project-art project-art-${project.category}`} aria-hidden="true"><Icon size={60} strokeWidth={1} /><span>{project.technologies.join(' / ')}</span></div>}
     <div className="project-body"><Icon className="line-icon" size={26} strokeWidth={1.4} aria-hidden="true" />
-      <h3>{project.title}</h3><p className="role">{project.role}</p><p>{project.description}</p>
+      <h3>{project.title}</h3><p className="role">{project.role}</p>{project.context && <p className="project-context">{project.context}</p>}<p>{project.description}</p>
       <ul className="tags" aria-label="Tecnologías">{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
-      <button type="button" className="text-link project-open" aria-haspopup="dialog" aria-label={`Abrir bitácora: ${project.title}`} onClick={() => onOpen(project)}>Abrir bitácora <ArrowUpRight size={16} aria-hidden="true" /></button>
+      <div className="project-actions">
+        <button type="button" className="text-link project-open" aria-haspopup="dialog" aria-label={`Abrir bitácora: ${project.title}`} onClick={() => onOpen(project)}>Abrir bitácora <ArrowUpRight size={16} aria-hidden="true" /></button>
+        {demo && <a className="text-link" href={demo.href} target="_blank" rel="noreferrer" aria-label={`${demo.label}: ${project.title} (se abre en otra pestaña)`}>{demo.label} <ArrowUpRight size={16} aria-hidden="true" /></a>}
+      </div>
     </div>
   </article>;
 }

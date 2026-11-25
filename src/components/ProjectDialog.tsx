@@ -40,12 +40,13 @@ export function ProjectDialog({ project, onDismiss }: { project: Project | null;
       <div className="dialog-content">
         <p className="eyebrow">{project.role}</p>
         <h2 id="dialog-title">{project.title}</h2>
+        {project.context && <p className="project-context">{project.context}</p>}
         <ul className="tags" aria-label="Tecnologías del proyecto">{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
         <section><h3>El reto</h3><p>{project.caseStudy.challenge}</p></section>
         <section><h3>Mi participación</h3><p>{project.caseStudy.contribution}</p></section>
         <section><h3>La solución</h3><ul className="solution-list">{project.caseStudy.solution.map(item => <li key={item}>{item}</li>)}</ul></section>
         <div className="dialog-actions"><a className="button" href={`mailto:${profile.email}?subject=${encodeURIComponent(`Un proyecto como ${project.title}`)}`}>Hablemos de tu proyecto <ArrowUpRight size={16} /></a>
-          {project.url && <a className="text-link" href={project.url} target="_blank" rel="noreferrer">Visitar proyecto <ArrowUpRight size={16} /></a>}
+          {project.links?.map(link => <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noreferrer">{link.label} <ArrowUpRight size={16} /></a>)}
         </div>
       </div>
     </div>}

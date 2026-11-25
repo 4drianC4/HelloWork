@@ -15,13 +15,57 @@ export interface Project {
   role: string;
   description: string;
   technologies: string[];
-  category: 'events' | 'automation' | 'inventory';
-  url?: string;
+  category: 'events' | 'automation' | 'inventory' | 'monitoring' | 'community';
+  /** Where and with whom it was built, e.g. a hackathon or a thesis. */
+  context?: string;
+  /** The first link is the live demo; it also shows on the card. */
+  links?: { label: string; href: string }[];
   screenshot?: { src: string; alt: string };
   caseStudy: { challenge: string; contribution: string; solution: string[] };
 }
 
 export const projects: Project[] = [
+  {
+    id: 'tunariguard', title: 'TunariGuard', category: 'monitoring',
+    context: 'NASA Space Apps Challenge Cochabamba · equipo 404 Not Brain Found',
+    links: [
+      { label: 'Ver demo', href: 'https://tunariguard.ivento.tech/inicio' },
+      { label: 'Publicación en LinkedIn', href: 'https://lnkd.in/p/dpnHaKEU' },
+    ],
+    screenshot: { src: 'images/projects/tunariguard.webp', alt: 'Panel de monitoreo de TunariGuard con focos detectados, alertas y un mapa de detecciones satelitales del Parque Nacional Tunari.' },
+    role: 'Backend · proyecto en equipo',
+    description: 'Monitoreo de anomalías térmicas en el Parque Nacional Tunari con datos satelitales MODIS y VIIRS de la NASA.',
+    technologies: ['Angular', 'Leaflet', 'NASA FIRMS'],
+    caseStudy: {
+      challenge: 'Dar seguimiento a los focos de calor del Parque Nacional Tunari, cuando dos satélites con resoluciones distintas (MODIS y VIIRS) entregan detecciones que no se pueden comparar directamente.',
+      contribution: 'Fui el encargado del backend en el equipo 404 Not Brain Found: conecté los datos satelitales existentes con el frontend para alimentar el panel, el mapa y las series históricas.',
+      solution: [
+        'Panel con focos detectados, alertas por prioridad y 15 distritos monitoreados.',
+        'Mapa interactivo de detecciones y un histórico de 303 meses (2001–2026).',
+        'Índice que armoniza VIIRS con MODIS por celda de 1 km y día, validado con un error anual de 16,3 %.',
+        'Proyección del índice esperado hasta 2031.',
+      ],
+    },
+  },
+  {
+    id: 'gommunity', title: 'Gommunity', category: 'community',
+    context: 'Proyecto de grado',
+    links: [{ label: 'Ver demo', href: 'https://gommunity.ivento.tech/' }],
+    screenshot: { src: 'images/projects/gommunity.webp', alt: 'Directorio público de Gommunity con buscador, filtros por departamento y municipio, y tarjetas de comunidades de Cochabamba.' },
+    role: 'Full-stack · proyecto personal',
+    description: 'Plataforma para que las comunidades de barrio se organicen, vendan lo que producen y recauden fondos para sus eventos.',
+    technologies: ['React', 'TypeScript', 'Go / Fiber', 'PostgreSQL', 'Redis', 'MinIO'],
+    caseStudy: {
+      challenge: 'Las comunidades de barrio organizan ventas, eventos y colectas con herramientas sueltas, sin un registro claro de quién aporta y qué se vende.',
+      contribution: 'Es mi proyecto de grado y lo desarrollé de principio a fin. El frontend usa React con TypeScript estricto, TanStack Query, Zustand y React Hook Form con Zod. El backend está en Go con Fiber, GORM sobre PostgreSQL, Redis y MinIO para archivos.',
+      solution: [
+        'Comunidades con revisión de registro, roles e invitaciones, y permisos por comunidad y por propietario.',
+        'Catálogo con inventario, pago por QR y revisión manual de comprobantes, con constancia descargable.',
+        'Eventos con reservas, asistencia gratuita, metas de recaudación y un libro de aportes transparente.',
+        'Autenticación con tokens opacos de acceso y renovación en cookies HttpOnly, y auditoría durable de cambios.',
+      ],
+    },
+  },
   {
     id: 'ivento', title: 'Ivento', category: 'events',
     screenshot: { src: 'images/projects/ivento.webp', alt: 'Panel de Ivento con espacios, eventos y tickets.' },

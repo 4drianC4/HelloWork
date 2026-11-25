@@ -6,6 +6,8 @@ import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { ProjectDialog } from './ProjectDialog';
 import { projects } from '../data/portfolio';
 
+const byId = (id: string) => projects.find(project => project.id === id)!;
+
 let root: Root;
 let host: HTMLDivElement;
 let trigger: HTMLButtonElement;
@@ -45,11 +47,19 @@ it('restores prior scroll settings and trigger focus when the log closes', async
 
 it('identifies team participation and offers a working close action', async () => {
   const dismiss = vi.fn();
-  await act(async () => root.render(<ProjectDialog project={projects[2]} onDismiss={dismiss} />));
+  await act(async () => root.render(<ProjectDialog project={byId('inventarios')} onDismiss={dismiss} />));
   expect(host.textContent).toContain('equipo ágil de 10 desarrolladores');
   expect(host.querySelector('a[href^="mailto:"]')).not.toBeNull();
   await act(async () => (host.querySelector('.dialog-close') as HTMLButtonElement).click());
   expect(dismiss).toHaveBeenCalledOnce();
+});
+
+it('lists every project link, demo first, opening in a new tab', async () => {
+  await act(async () => root.render(<ProjectDialog project={byId('tunariguard')} onDismiss={() => {}} />));
+  const links = [...host.querySelectorAll<HTMLAnchorElement>('.dialog-actions a[target="_blank"]')];
+  expect(links.map(link => link.textContent?.trim())).toEqual(['Ver demo', 'Publicación en LinkedIn']);
+  expect(links[0].href).toBe('https://tunariguard.ivento.tech/inicio');
+  expect(links.every(link => link.rel === 'noreferrer')).toBe(true);
 });
 
 it('ignores a delayed close event from an earlier log after another has opened', async () => {
