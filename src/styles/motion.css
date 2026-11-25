@@ -1,55 +1,19 @@
-.hero { min-height: 680px; grid-template-columns: 1.15fr 1fr; }
 .hero-copy { min-width: 0; }
-.solar-stage { position: relative; min-width: 0; height: 520px; margin-inline: -30px; }
-.solar-canvas { width: 100%; height: 100%; pointer-events: none; }
+.solar-canvas { width: 100%; height: 100%; }
 .solar-stage .solar-system { height: 100%; }
-.solar-stage .scene-caption { bottom: 20px; right: 30px; pointer-events: none; font-size: .6rem; }
 .button, .social-links a, nav a { transition: color .2s ease, background-color .2s ease, border-color .2s ease; }
 .project-card, .service-card { transition: border-color .25s ease, box-shadow .25s ease; }
 .project-card:hover, .service-card:hover { border-color: #8ddcff66; box-shadow: 0 8px 32px #0003; }
 .project-art { position: relative; overflow: hidden; }
 .project-art::before { content: ''; position: absolute; width: 230px; height: 230px; border: 1px solid #8ddcff12; border-radius: 50%; transform: rotateX(50deg) rotateZ(-25deg); pointer-events: none; }
 .project-art > * { position: relative; }
-@media (max-width: 1000px) and (min-width: 641px) {
-  .hero { grid-template-columns: 1.15fr 1fr; gap: 0; }
-  .solar-stage { height: 420px; margin-inline: -15px; }
-  h1 { font-size: clamp(2.4rem, 4.7vw, 3.3rem); }
-}
-@media (max-width: 640px) {
-  .hero { min-height: 0; grid-template-columns: 1fr; }
-  .solar-stage { height: 350px; margin: 0 -10px; }
-  .solar-stage .scene-caption { bottom: 10px; right: 14px; }
-}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-
-/* The complete scene is visible immediately; motion is independent of scroll. */
-.hero-expedition { position: relative; }
 body { overflow-x: clip; }
-.hero-sticky { position: relative; min-height: 640px; display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 0; padding-block: 35px 55px; isolation: isolate; }
-.hero-sticky::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 78% 40%, #234b7340, transparent 50%), radial-gradient(ellipse at 70% 52%, #84503319, transparent 38%); mask-image: linear-gradient(90deg, transparent, #000 40%, #000 85%, transparent); }
-.hero-sticky h1 { font-size: clamp(2.5rem, 3.7vw, 3.45rem); }
-.hero-sticky .solar-stage { height: 550px; margin-inline: -25px; }
-.hero-sticky .solar-canvas {
-  transform: translateX(-6%) scale(1.35);
-  transform-origin: center;
-  /* Fade the canvas itself: the distant sky extends beyond the camera frustum,
-     so fading only its texture cannot remove the rectangular canvas boundary. */
-  mask-image: radial-gradient(ellipse closest-side, #000 50%, #000b 72%, transparent 100%);
-}
-.hero-sticky .solar-system { transform: scale(1.3); transform-origin: center; }
-@media(max-width:1000px) and (min-width:641px) { .hero-sticky { min-height: 540px; grid-template-columns: 1fr 1fr; } .hero-sticky h1 { font-size: 2.5rem; } .hero-sticky .solar-stage { height: 440px; margin-inline: -10px; } }
-@media(max-width:640px) { .hero-sticky { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; gap: 0; } .hero-sticky .solar-stage { height: 360px; margin-inline: 0; } .hero-sticky h1 { font-size: 2.5rem; } .hero-sticky .scroll-cue { margin-top: 20px; } }
-@media(max-width:1000px) and (min-width:641px) { .hero-sticky .solar-canvas { transform: scale(1.4); } }
-@media(max-width:640px) { .hero-sticky .solar-canvas, .hero-sticky .solar-system { transform: scale(1.08); } }
 
 /* Keep GPU warm-up invisible; preserve the scene's layout during loading. */
 .solar-canvas { opacity: 0; transition: opacity 1.1s ease; }
 .solar-canvas.is-ready { opacity: 1; }
 .solar-loading { width: 100%; height: 100%; background: radial-gradient(ellipse, #8ddcff08, transparent 65%); }
-@media(max-width:640px) {
-  /* The page's fixed stars must not shine through the transparent WebGL scene. */
-  .solar-stage::before { content: ''; position: absolute; inset: -12px -18px; background: var(--space-950); mask-image: radial-gradient(ellipse, #000 55%, transparent 75%); pointer-events: none; }
-}

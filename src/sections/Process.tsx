@@ -9,9 +9,9 @@ const examples = [
   'Por ejemplo: recorremos las funciones de la herramienta y acordamos cómo atender consultas después de la entrega.',
 ];
 
-export function Process() {
+export function Process({ number }: { number: string }) {
   return <section className="process-section" id="proceso" aria-labelledby="process-title"><div className="wrap">
-    <SectionHeading number="03" title="Cómo trabajo" id="process-title" />
+    <SectionHeading number={number} title="Cómo trabajo" id="process-title" />
     <ol className="process-grid">{process.map((step, index) => <li key={step.title}>
       <details className="process-detail"><summary aria-label={`${step.title}: ver ejemplo`}>
         <img className="process-orb" src={`${import.meta.env.BASE_URL}images/planets/${planetImages[index]}.png`} alt="" width="72" height="72" loading="lazy" decoding="async" />

@@ -4,6 +4,9 @@ export const profile = {
   email: 'camararequeadrianrafael@gmail.com',
   github: 'https://github.com/4drianC4',
   linkedin: 'https://www.linkedin.com/in/adrian-c-r/',
+  // Pending: add these to turn on the "Descargar CV" and WhatsApp buttons.
+  cvUrl: '' as string, // e.g. 'cv-adrian-camara.pdf' placed in public/
+  whatsapp: '' as string, // international format without "+", e.g. '5917XXXXXXX'
 };
 
 export interface Project {

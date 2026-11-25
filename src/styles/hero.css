@@ -1,0 +1,82 @@
+/* Full-bleed solar system hero: one planet per route (empleo, clientes, personal). */
+.hero-system { position: relative; height: clamp(600px, calc(100svh - 76px), 940px); overflow: hidden; isolation: isolate; }
+.hero-system .solar-stage { position: absolute; inset: 0; z-index: 0; }
+.hero-system .hero-copy { position: relative; z-index: 2; padding-top: clamp(36px, 7vh, 72px); pointer-events: none; }
+.hero-system .hero-copy > * { pointer-events: auto; max-width: 34rem; }
+.hero-system .hero-copy h1 { max-width: none; white-space: nowrap; }
+.hero-system .eyebrow { margin-bottom: 14px; }
+.hero-system h1 { font-size: clamp(2.2rem, 3.6vw, 3.3rem); }
+.hero-system .hero-description { margin-block: 12px 0; font-size: 1.1rem; }
+
+.route-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.route-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.route-lines line { stroke: #f4f6fa59; stroke-width: 1; transition: stroke .25s ease; }
+.route-lines circle { fill: #f4f6fa; opacity: .75; }
+.route-lines .is-active line { stroke: var(--sky); }
+.route-lines .is-active circle { fill: var(--sky); opacity: 1; }
+
+.route-cards { list-style: none; margin: 0; padding: 0; }
+.route-card {
+  pointer-events: auto; display: flex; align-items: center; gap: 16px; width: 100%; text-align: left;
+  padding: 16px 20px; border-radius: 12px; cursor: pointer; font: inherit; color: var(--starlight);
+  background: rgb(18 26 42 / 52%); border: 1px solid rgb(244 246 250 / 22%);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 12px 40px #0006; transition: border-color .25s ease, background-color .25s ease;
+}
+.route-card svg { flex-shrink: 0; color: var(--starlight); }
+.route-card-text { display: grid; gap: 3px; padding-left: 16px; border-left: 1px solid rgb(244 246 250 / 22%); }
+.route-card strong { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 650; }
+.route-card-text span { font-size: .84rem; color: var(--mist); line-height: 1.4; }
+.route-card:hover, .route-card:focus-visible { border-color: var(--sky); background: rgb(24 38 62 / 66%); }
+.route-card:focus-visible { outline: 2px solid var(--sky); outline-offset: 4px; }
+.route-card[aria-pressed='true'] { border-color: var(--sky); box-shadow: 0 0 0 1px var(--sky), 0 12px 40px #0006; }
+
+/* Floating mode: the 3D scene positions each card beside its planet. */
+.route-layer.is-floating .route-card { position: absolute; left: 0; top: 0; width: 264px; will-change: transform; }
+.route-layer.is-floating:not(.is-placed) .route-cards { opacity: 0; animation: route-cards-fallback 0s 4s forwards; }
+.route-layer.is-floating:not(.is-placed) .route-card { position: static; width: auto; transform: none !important; }
+.route-layer.is-floating:not(.is-placed) .route-cards,
+.route-layer:not(.is-floating) .route-cards { position: absolute; left: 50%; bottom: 64px; transform: translateX(-50%); display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); gap: 16px; width: min(var(--width), calc(100% - 64px)); justify-content: center; }
+.route-layer.is-placed .route-cards { animation: route-cards-in .6s ease both; }
+@keyframes route-cards-fallback { to { opacity: 1; } }
+@keyframes route-cards-in { from { opacity: 0; } to { opacity: 1; } }
+
+.route-hint { position: absolute; z-index: 2; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; margin: 0; font: .72rem var(--font-mono); letter-spacing: .08em; color: var(--starlight); white-space: nowrap; pointer-events: none; }
+.route-hint::before, .route-hint::after { content: ''; width: 28px; height: 1px; background: #f4f6fa66; }
+
+/* Route banner shown once a planet is chosen. */
+.route-banner { scroll-margin-top: 90px; }
+.route-banner:not(:empty) { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; padding-block: 22px; border-top: 1px solid var(--border); }
+.route-banner p { color: var(--starlight); }
+.route-banner-label { display: inline-block; margin-right: 14px; font: .72rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sky); }
+.route-banner-actions { display: flex; gap: 20px; font-size: .82rem; }
+.route-banner-actions a, .route-banner-actions button { display: inline-flex; align-items: center; gap: 6px; color: var(--mist); background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.route-banner-actions a:hover, .route-banner-actions button:hover { color: var(--sky); }
+
+/* Static fallback (reduced motion / no WebGL): textured CSS planets in the same composition. */
+.hero-system .solar-system { position: absolute; inset: 0; height: auto; }
+.hero-system .planet { background-size: 200% 100%; background-position: 30% 50%; box-shadow: inset -28px -18px 40px #000c, 0 0 30px #8ddcff14; }
+.hero-system .sun { width: 70px; left: 50%; top: 42%; transform: translate(-50%, -50%); }
+.hero-system .orbit { top: 46%; transform: translate(-50%, -50%); }
+.hero-system .orbit-one { width: 40%; height: 22%; } .hero-system .orbit-two { width: 70%; height: 40%; } .hero-system .orbit-three { width: 120%; height: 76%; }
+.hero-system .planet-red { width: 120px; left: 14%; top: 42%; }
+.hero-system .planet-blue { width: 440px; left: auto; right: -60px; top: auto; bottom: -180px; }
+.hero-system .planet-ringed { width: 110px; left: auto; right: 22%; top: 16%; }
+.hero-system .planet-ringed span { width: 210px; height: 50px; left: -50px; top: 30px; border-width: 8px; }
+
+@media (max-width: 640px) {
+  .hero-system { height: auto; overflow: visible; display: flex; flex-direction: column; }
+  .hero-system .hero-copy { order: 0; } .hero-system .solar-stage { order: 1; } .route-layer { order: 2; }
+  .hero-system .hero-copy h1 { white-space: normal; }
+  .hero-system .solar-stage { position: relative; inset: auto; height: 400px; margin-top: -8px; }
+  .hero-system .hero-copy { padding-top: 32px; }
+  .hero-system h1 { font-size: 2.3rem; }
+  .route-layer, .route-layer:not(.is-floating) .route-cards { position: static; transform: none; width: auto; }
+  .route-layer { padding: 0 18px 28px; }
+  .route-layer:not(.is-floating) .route-cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .route-hint { display: none; }
+  .hero-system .planet-red { width: 64px; left: 8%; top: 30%; }
+  .hero-system .planet-blue { width: 240px; right: -40px; bottom: -60px; }
+  .hero-system .planet-ringed { width: 64px; right: 14%; top: 8%; }
+  .hero-system .planet-ringed span { width: 122px; height: 30px; left: -29px; top: 17px; border-width: 5px; }
+}

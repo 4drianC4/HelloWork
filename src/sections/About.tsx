@@ -3,9 +3,9 @@ import { profile } from '../data/portfolio';
 import { SectionHeading } from '../components/SectionHeading';
 import { HiddenSignal } from '../components/HiddenSignal';
 
-export function About() {
+export function About({ number }: { number: string }) {
   return <section className="section wrap about" id="sobre-mi" aria-labelledby="about-title">
-    <SectionHeading number="04" title="Sobre mí" id="about-title" />
+    <SectionHeading number={number} title="Sobre mí" id="about-title" />
     <div className="about-grid"><div className="about-visual"><div className="observatory-view" aria-hidden="true"><img src={`${import.meta.env.BASE_URL}images/observatory.webp`} alt="" loading="lazy" decoding="async" /></div>
       <figure className="portrait-card"><img src={`${import.meta.env.BASE_URL}images/adrian-camara.webp`} alt="Adrian Camara" width="360" height="480" loading="lazy" decoding="async" /><figcaption>Adrian Camara<span>Desarrollo · Docencia · Exploración</span></figcaption></figure>
     </div><div><h3>Desarrollo, docencia<br />y curiosidad<span>.</span></h3>

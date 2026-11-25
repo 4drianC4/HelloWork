@@ -2,10 +2,13 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { SceneBoundary } from './SceneBoundary';
 import { SolarSystemFallback } from './SolarSystemFallback';
+import type { SolarCanvasProps } from './SolarCanvas';
 
 const SolarCanvas = lazy(() => import('./SolarCanvas'));
 
-export function SolarSystem() {
+type Props = Omit<SolarCanvasProps, 'active' | 'compact'>;
+
+export function SolarSystem(props: Props) {
   const container = useRef<HTMLDivElement>(null);
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const compact = useMediaQuery('(max-width: 640px)');
@@ -24,9 +27,8 @@ export function SolarSystem() {
     {reducedMotion ? <SolarSystemFallback /> :
       <SceneBoundary fallback={<SolarSystemFallback />}>
         <Suspense fallback={<div className="solar-loading" />}>
-          <SolarCanvas active={visible && pageVisible} compact={compact} />
+          <SolarCanvas active={visible && pageVisible} compact={compact} {...props} />
         </Suspense>
       </SceneBoundary>}
-    <span className="scene-caption">HELLOWORK / EXPEDICIÓN 001</span>
   </div>;
 }
