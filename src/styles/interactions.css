@@ -137,3 +137,5 @@ button:focus-visible { outline: 2px solid var(--sky); outline-offset: 5px; borde
 .project-body > p.project-context { font-size: .7rem; margin-top: 6px; }
 .project-actions { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .project-actions .text-link { font-size: .85rem; padding: 8px 0; }
+
+.new-badge { display: inline-block; margin-left: 10px; padding: 2px 8px; border-radius: 999px; background: #285a7d; color: #fff; font: 600 .62rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }

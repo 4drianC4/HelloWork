@@ -15,7 +15,9 @@ export interface Project {
   role: string;
   description: string;
   technologies: string[];
-  category: 'events' | 'automation' | 'inventory' | 'monitoring' | 'community';
+  category: 'events' | 'automation' | 'inventory' | 'monitoring' | 'community' | 'learning';
+  /** Recently added: gets a "Nuevo" badge and is announced on the home screen. */
+  isNew?: boolean;
   /** Where and with whom it was built, e.g. a hackathon or a thesis. */
   context?: string;
   /** The first link is the live demo; it also shows on the card. */
@@ -25,6 +27,24 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    id: 'dos-cerebros', title: 'Dos cerebros', category: 'learning', isNew: true,
+    context: 'Proyecto personal · código abierto',
+    links: [{ label: 'Ver repositorio', href: 'https://github.com/4drianC4/dos-cerebros' }],
+    role: 'Desarrollo · proyecto personal',
+    description: 'Método de estudio con Obsidian e IA: un agente convierte tus apuntes en material de estudio y tú lo corriges con comentarios.',
+    technologies: ['Python', 'Bash', 'Obsidian', 'Claude / Codex / opencode', 'Quartz'],
+    caseStudy: {
+      challenge: 'Preparar materias a partir de apuntes sueltos lleva mucho tiempo, y el material que genera una IA puede tener errores que nadie revisa.',
+      contribution: 'Diseñé y programé el sistema completo: un controlador en Python sin dependencias externas, una CLI en Bash y plantillas de Obsidian. Separé el trabajo en dos "cerebros": el humano aporta y revisa, el agente procesa y corrige.',
+      solution: [
+        'Por cada tema genera un apunte mejorado, observaciones, práctica y soluciones, y al final un simulacro por materia.',
+        'Correcciones con comentarios desde Obsidian; ninguna se da por buena hasta que la aceptas.',
+        'Funciona con Claude Code, Codex u opencode con modelos gratuitos, y cambia de modelo si uno falla.',
+        'Los apuntes originales no se tocan: se verifican con hashes SHA-256, y se puede publicar una web privada de lectura con Quartz.',
+      ],
+    },
+  },
   {
     id: 'tunariguard', title: 'TunariGuard', category: 'monitoring',
     context: 'NASA Space Apps Challenge Cochabamba · equipo 404 Not Brain Found',

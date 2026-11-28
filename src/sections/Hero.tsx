@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Code2, Laptop, UserRound } from 'lucide-react';
+import { ArrowRight, Code2, Laptop, Sparkles, UserRound } from 'lucide-react';
+import { projects } from '../data/portfolio';
 import { SolarSystem } from '../scene/SolarSystem';
 import { routes } from '../data/routes';
 import type { RouteId } from '../data/routes';
@@ -7,6 +8,7 @@ import { setRoute, useRoute } from '../hooks/useRoute';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const icons = { empleo: Code2, clientes: Laptop, personal: UserRound };
+const latest = projects.find(project => project.isNew);
 
 export function Hero() {
   const route = useRoute();
@@ -34,7 +36,13 @@ export function Hero() {
     <section className="hero-system" aria-labelledby="hero-title" id="inicio">
       <SolarSystem route={route} hovered={hovered} layer={layer} onSelect={choose} onPlaced={() => setPlaced(true)} />
       <div className="hero-copy wrap">
-        <p className="eyebrow">Hola, soy Adrian · Cochabamba, Bolivia</p>
+        <div className="hero-topline">
+          <p className="eyebrow">Hola, soy Adrian · Cochabamba, Bolivia</p>
+          {latest && <a className="news-notice" href="#proyectos">
+            <Sparkles size={15} aria-hidden="true" /><span className="news-label">Nuevo contenido</span>
+            <span>{latest.title} llegó a la bitácora</span><ArrowRight size={15} aria-hidden="true" />
+          </a>}
+        </div>
         <h1 id="hero-title">Desarrollador full-stack<span>.</span></h1>
         <p className="hero-description">Go, React y automatizaciones con IA.</p>
       </div>
